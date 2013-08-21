@@ -1,4 +1,5 @@
 import threading
+import config
 
 class Data ( ) :
     
@@ -20,6 +21,4 @@ class Data ( ) :
 
     def write ( self, key , valor ) :
         self.data[key] = valor
-
-
 
