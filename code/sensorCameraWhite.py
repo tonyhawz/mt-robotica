@@ -228,6 +228,7 @@ def main():
     #config.camara = '../video2013-07-09.avi'
     #config.camara = '../video-2013-07-09-1373413843.avi'
     #config.camara = '../video7.avi'
+    config.camara = '0'
     config.display = True
     config.dual_display = True
     m = SensorCameraWhite(data , lock) 
