@@ -52,9 +52,9 @@ a.start()
 
 # Sensor(data)
 # SensorBoton(data, u4b, 1, lock_u4b), 
-sensores = [SensorGrises(data, u4b, config.grisDer, lock_u4b), SensorGrises(data,u4b,config.grisIzq,lock_u4b),SensorCameraWhite(data,lock_u4b)]
+#sensores = [SensorGrises(data, u4b, config.grisDer, lock_u4b), SensorGrises(data,u4b,config.grisIzq,lock_u4b),SensorCameraWhite(data,lock_u4b)]
 
-#sensores = [Sensor(data),  SensorGrises(data, u4b, config.grisDer, lock_u4b), SensorGrises(data,u4b,config.grisIzq,lock_u4b)]
+sensores = [Sensor(data),  SensorGrises(data, u4b, config.grisDer, lock_u4b), SensorGrises(data,u4b,config.grisIzq,lock_u4b)]
 
 
 

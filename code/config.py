@@ -38,7 +38,7 @@ min_hsv_tacho = np.array((0,14,10),np.int32)
 max_hsv_tacho = np.array((15,256,256),np.int32)
 
 
-display = False
+display = True
 dual_display = False
 
 # Variables para sensor de distancia - infrarojos

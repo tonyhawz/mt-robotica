@@ -30,6 +30,8 @@ class SensorCameraWhite(sensor.Sensor):
         self.data.write('Camara::lata_x', int(0))
         self.video.set(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT, config.alto);
         f, img = self.video.read()
+        if not f :
+            print ("nO ENCARO")
         img_bw = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
         self.zeros = np.zeros(img_bw.shape,np.uint8)
         self.shape =  img_bw.shape
@@ -228,6 +230,7 @@ def main():
     #config.camara = '../video2013-07-09.avi'
     #config.camara = '../video-2013-07-09-1373413843.avi'
     #config.camara = '../video7.avi'
+    config.camara = -1
     config.camara = '0'
     config.display = True
     config.dual_display = True
