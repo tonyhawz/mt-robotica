@@ -41,7 +41,7 @@ data = Data()
 
 comportamientos  = [ CompAlfombra(data, motor), CompEvitar(data, motor), CompCargarLata(data, motor), CompLata(data, motor, lock_u4b),  CompWander(data, motor)]
 
-a = ArbitroST(comportamientos,data) 
+a = Arbitro(comportamientos,data) 
 a.start()
 
 #sensores = [Sensor(data), SensorDistancia(data, u4b, 1, lock_u4b), SensorGrises(data, u4b, 1, lock_u4b), SensorGrises(data,u4b,3,lock_u4b),SensorCameraWhite(data,lock_u4b)]
