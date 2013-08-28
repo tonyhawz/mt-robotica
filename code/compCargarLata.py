@@ -14,7 +14,6 @@ class CompCargarLata(comp.Comp):
         x = self.data.read('Camara::lata_x')
         y = self.data.read('Camara::lata_y')
         return x > config.min_x and x < config.max_x and y > config.min_y 
-        #return (self.data.read('lata::disponible') == 1)
 
     def action(self):
         print 'CompCargarLata::action'

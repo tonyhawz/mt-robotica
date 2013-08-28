@@ -63,13 +63,11 @@ class CompAlfombra(comp.Comp):
         self.timeout = self.timeout - deltaT
         print 'CompAlfombra::action estado:'+ str(self.estado) + ' ' + str(self.timeout) + ' time:'+ str(time.time()) 
         self.t_antes = self.getTime()
-#    	print "action alfombra"
 
         if (self.timeout < 0):
             self.estado = (self.estado +1) % 2
         
         if ( self.estado == config.uno) :
-#            print 'CompAlfombra::atras'
             self.motores.girar_marchatras(self.horario)
 
 
