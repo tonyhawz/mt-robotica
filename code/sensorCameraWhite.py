@@ -23,7 +23,6 @@ class SensorCameraWhite(sensor.Sensor):
         sensor.Sensor.__init__(self, data)
         self.key = 'SensorVision::init'
         self.lock = lock
-        #self.capture = cv.CaptureFromCAM (config.camara)
         self.video = cv2.VideoCapture(config.camara)
         self.video.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH, config.ancho);
         self.data.write('Camara::area', 0)
@@ -230,8 +229,7 @@ def main():
     #config.camara = '../video2013-07-09.avi'
     #config.camara = '../video-2013-07-09-1373413843.avi'
     #config.camara = '../video7.avi'
-    config.camara = -1
-    config.camara = '0'
+    config.camara = 0
     config.display = True
     config.dual_display = True
     m = SensorCameraWhite(data , lock) 
