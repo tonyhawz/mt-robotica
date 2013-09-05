@@ -1,0 +1,6 @@
+uvcdynctrl --device=video1 -s 'Exposure, Auto Priority' 0
+uvcdynctrl --device=video1 -s 'White Balance Temperature, Auto' 0
+uvcdynctrl --device=video1 -s 'Exposure, Auto' 0
+
+
+
