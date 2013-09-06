@@ -1,7 +1,6 @@
 import comp 
 import time
 import config
-from sensorCameraWhite import SensorCameraWhite
 
 class CompLata(comp.Comp):
 
@@ -12,7 +11,6 @@ class CompLata(comp.Comp):
         self.data.write('Camara::lata_x', 0)
         self.data.write('Camara::encontro', 'FALSE')
         self.data.write('lata::disponible', 0)
-#        self.camara = SensorCameraWhite(data,lock_u4b)
 
     def getNombre(self):
         return 'CompLata'
@@ -21,7 +19,6 @@ class CompLata(comp.Comp):
         #val = self.data.read('Camara::area')
 	#print "area= " + str(val)
         #return (val > config.min_area) and (self.data.read('lata::disponible') == 0)
-#        self.camara.action()
 	return self.data.read('Camara::encontro') == 'TRUE'
 
     def action(self):
@@ -40,7 +37,6 @@ class CompLata(comp.Comp):
         elif (self.data.read('Camara::lata_x') > config.max_x):
             print "derecha"
             self.motores.girar_horario()
-            #self.motores.girar_horario()
 
     def reset(self):
         self.data.write('Camara::area', 0)

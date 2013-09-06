@@ -6,7 +6,7 @@ import threading
 
 from comp import Comp
 from arbitro import Arbitro 
-from arbitro_st import ArbitroST 
+#from arbitro_st import ArbitroST 
 from data import Data 
 from sensor import Sensor 
 from compEvitar import CompEvitar
@@ -40,21 +40,16 @@ data = Data()
 #  CompBoton(data, motor), 
 
 comportamientos  = [ CompAlfombra(data, motor), CompEvitar(data, motor), CompCargarLata(data, motor), CompLata(data, motor, lock_u4b),  CompWander(data, motor)]
-#comportamientos  = [ CompAlfombra(data, motor), CompEvitar(data, motor), CompCargarLata(data, motor), CompLata(data, motor),  CompWander(data, motor)]
-#, Comp(data)] 
 
-a = ArbitroST(comportamientos,data) 
+a = Arbitro(comportamientos,data) 
 a.start()
 
-#sensores = [Sensor(data), SensorGrises(data, u4b, 1, lock_u4b), SensorGrises(data,u4b,3,lock_u4b),SensorVision(data,lock_u4b)] 
 #sensores = [Sensor(data), SensorDistancia(data, u4b, 1, lock_u4b), SensorGrises(data, u4b, 1, lock_u4b), SensorGrises(data,u4b,3,lock_u4b),SensorCameraWhite(data,lock_u4b)]
 
 
-# Sensor(data)
-# SensorBoton(data, u4b, 1, lock_u4b), 
-sensores = [SensorGrises(data, u4b, config.grisDer, lock_u4b), SensorGrises(data,u4b,config.grisIzq,lock_u4b),SensorCameraWhite(data,lock_u4b)]
+#sensores = [SensorGrises(data, u4b, config.grisDer, lock_u4b), SensorGrises(data,u4b,config.grisIzq,lock_u4b),SensorCameraWhite(data,lock_u4b)]
 
-#sensores = [Sensor(data),  SensorGrises(data, u4b, config.grisDer, lock_u4b), SensorGrises(data,u4b,config.grisIzq,lock_u4b)]
+sensores = [Sensor(data),  SensorGrises(data, u4b, config.grisDer, lock_u4b), SensorGrises(data,u4b,config.grisIzq,lock_u4b)]
 
 
 

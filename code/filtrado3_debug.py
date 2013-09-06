@@ -14,7 +14,7 @@ def main ():
         if (not(delay == 20)):
             delay += 1
             img = cv.QueryFrame (capture)
-            cv.ReleaseCapture( img )
+            #cv.ReleaseCapture( img )
         else:
             delay = 0
             frame = cv.QueryFrame (capture)
