@@ -28,7 +28,10 @@ class SensorCameraWhite(sensor.Sensor):
         self.key = 'SensorVision::init'
         self.lock = lock
         self.video = cv2.VideoCapture(config.camara)
-        self.video.set(cv2.cv. V_CAP_PROP_FRAME_WIDTH, config.ancho)
+        if self.video is None:
+            print("error al leer el video")
+            sys.exit(2)
+        self.video.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH, config.ancho)
         self.data.write('Camara::area', 0)
         self.data.write('Camara::lata_x', int(0))
         self.video.set(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT, config.alto)

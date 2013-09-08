@@ -3,6 +3,9 @@ import numpy as np
 from keys import keys
 import camera_utils as cu
 import conf as conf
+import re
+import sys
+import getopt
 
 class Parametros() :
 
@@ -37,11 +40,27 @@ def get_minmax_hsv():
     max_hsv = np.array((max_h,max_s,max_v),np.int32)
     return (min_hsv,max_hsv)
 
-argv = sys.argv[:]
+route = ''
+try:
+    opts, args = getopt.getopt(sys.argv[1:], "hi:o:", ["ifile=", "ofile="])
+except getopt.GetoptError:
+    print ('error')
+    sys.exit(2)
+for opt, arg in opts:
+    if opt == '-i':
+        numerico = re.compile("[0-9]").match(arg)
+        if numerico:
+            route = int(arg)
+        else:
+            route = arg
+if (route == ''):
+    print ('falta camara, saliendo')
+    sys.exit(2)
+
 
 #route = './2013-06-02-131200.webm'
-route = '../video-2013-07-09-1373413843.avi'
-route = 'video-1378341835.58.avi'
+#route = '../video-2013-07-09-1373413843.avi'
+#route = 'video-1378341835.58.avi'
 #route = 'video7.avi'
 #route = 'video2.avi'
 #route = 'video3.avi'
@@ -52,7 +71,7 @@ video.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH, 640);
 video.set(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT, 480);
 
 if not video.isOpened():
-    raise RuntimeError('Input file not open')
+    raise RuntimeError('no se pudo abrir el video')
 
 p = Parametros()
 

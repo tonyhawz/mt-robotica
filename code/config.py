@@ -30,13 +30,22 @@ atras       = 0
 
 min_hsv_negro = np.array((0,0,0),np.int32)
 max_hsv_negro = np.array((256,256,50),np.int32)
-min_hsv_arena = np.array((9,70,0),np.int32)
-max_hsv_arena = np.array((28,150,100),np.int32)
-min_hsv_blanc = np.array((0,0,91),np.int32)
-max_hsv_blanc = np.array((256,91,256),np.int32)
+
+min_hsv_arena = np.array((0,100,100),np.int32)
+max_hsv_arena = np.array((100,224,256),np.int32)
+
+min_hsv_blanc = np.array((0,100,100),np.int32)
+max_hsv_blanc = np.array((100,224,256),np.int32)
+
+
+#min_hsv_blanc = np.array((0,0,91),np.int32)
+#max_hsv_blanc = np.array((256,91,256),np.int32)
+
 min_hsv_tacho = np.array((0,14,10),np.int32)
 max_hsv_tacho = np.array((15,256,256),np.int32)
 
+min_hsv_azul = np.array((100,0,0),np.int32)
+max_hsv_azul = np.array((150,256,256),np.int32)
 
 display = True
 dual_display = False
