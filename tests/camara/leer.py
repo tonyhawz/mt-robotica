@@ -37,6 +37,8 @@ def get_minmax_hsv():
     max_hsv = np.array((max_h,max_s,max_v),np.int32)
     return (min_hsv,max_hsv)
 
+argv = sys.argv[:]
+
 #route = './2013-06-02-131200.webm'
 route = '../video-2013-07-09-1373413843.avi'
 route = 'video-1378341835.58.avi'

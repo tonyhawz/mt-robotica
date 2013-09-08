@@ -1,10 +1,10 @@
-import time
+#import time
 import signal
 import sys
 import config
 import threading
 
-from comp import Comp
+#from comp import Comp
 from arbitro import Arbitro
 #from arbitro_st import ArbitroST
 from data import Data
@@ -13,29 +13,29 @@ from compEvitar import CompEvitar
 from compWander import CompWander
 from compAlfombra import CompAlfombra
 from compLata import CompLata
-from compBoton import CompBoton
+#from compBoton import CompBoton
 from compCargarLata import CompCargarLata
-from pybot import usb4butia
+#from pybot import usb4butia
 from sensorGrises import SensorGrises
-from sensorDistancia import SensorDistancia
-from sensorBoton import SensorBoton
-from sensorCameraWhite import SensorCameraWhite
+#from sensorDistancia import SensorDistancia
+#from sensorBoton import SensorBoton
+#from sensorCameraWhite import SensorCameraWhite
 from motores import Motores
+from myUsb4Butia import MyUsb4Butia
+
 
 global hilos
 global lock_u4b
 
 lock_u4b = threading.Lock()
-u4b = usb4butia.USB4Butia()
+u4b = MyUsb4Butia()
 motor = Motores(u4b, lock_u4b)
-
 
 hilos = []
 
 print ('Press Ctrl+C')
 
 data = Data()
-
 
 #  CompBoton(data, motor),
 
