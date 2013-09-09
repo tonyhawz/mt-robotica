@@ -1,4 +1,4 @@
-import numpy as np 
+import numpy as np
 
 refresh_rate = .01
 
@@ -14,7 +14,7 @@ min_area    = 200
 area_lata   = 1000000
 min_x       = (ancho / 2.0) - (ancho / 10.0)
 max_x       = (ancho / 2.0) + (ancho / 10.0)
-min_y       = (alto*.75) 
+min_y       = (alto*.75)
 
 # variables para el control de los colores en HSV
 min_range   = (0, 0, 0)
@@ -31,11 +31,11 @@ atras       = 0
 min_hsv_negro = np.array((0,0,0),np.int32)
 max_hsv_negro = np.array((256,256,50),np.int32)
 
-min_hsv_arena = np.array((0,100,100),np.int32)
-max_hsv_arena = np.array((100,224,256),np.int32)
+min_hsv_arena = np.array((0, 100, 100), np.int32)
+max_hsv_arena = np.array((100, 224, 256), np.int32)
 
-min_hsv_blanc = np.array((0,100,100),np.int32)
-max_hsv_blanc = np.array((100,224,256),np.int32)
+min_hsv_blanc = np.array((0, 50, 80), np.int32)
+max_hsv_blanc = np.array((100, 224, 256), np.int32)
 
 
 #min_hsv_blanc = np.array((0,0,91),np.int32)
@@ -58,9 +58,9 @@ uno         = 1
 
 # Variables para sensores de grises
 timeout_ini = 4
-max_len     = 1 
+max_len     = 1
 grisDer     = 1
-grisIzq     = 3 
+grisIzq     = 3
 alf_detect  = 20000
 
 idBoton     = 6
