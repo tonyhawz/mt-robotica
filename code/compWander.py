@@ -1,10 +1,10 @@
-import comp 
+import comp
 import time
 
 TIMEOUT = 10000
 
 class CompWander(comp.Comp):
-    
+
     timeout 	= None
     t_antes	= None
     estado 	= 1
@@ -15,10 +15,10 @@ class CompWander(comp.Comp):
 
     def __init__(self, data, motores):
         comp.Comp.__init__(self, data)
-        self.timeout = TIMEOUT 
+        self.timeout = TIMEOUT
         self.motores = motores
         self.estado = self.ADELANTE
-        self.t_antes = self.getTime() 
+        self.t_antes = self.getTime()
 
     def getNombre(self):
         return 'CompWander'
@@ -50,7 +50,7 @@ class CompWander(comp.Comp):
 
     def post_stop(self):
         print 'CompWander::post_stop'
-        self.timeout = TIMEOUT 
+        self.timeout = TIMEOUT
 	self.estado = self.ADELANTE
 
     def getTime(self):

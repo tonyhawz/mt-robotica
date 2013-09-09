@@ -55,7 +55,7 @@ class Motores():
 
     def girar_marchatras(self, horario):
         ki = 3
-        kd = 3 
+        kd = 3
         if horario :
             ki = 1.8
         else :

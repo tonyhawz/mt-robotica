@@ -1,4 +1,4 @@
-import comp 
+import comp
 import time
 import config
 
@@ -46,7 +46,7 @@ class CompLata(comp.Comp):
 
     def post_stop(self):
         print 'CompLata::post_stop'
-        
+
     def getTime(self):
         return time.time()
 

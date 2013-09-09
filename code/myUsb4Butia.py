@@ -138,3 +138,33 @@ class MyUsb4Butia(USB4Butia):
         Gets the value of hack pin configured as input. Returns 0 or 1
         """
         return self.callModule('hackp', board, 0, 'read', [int(pin)])
+
+    ################################# Extras ##################################
+
+    def writeInfo(self, motor_id, regstart, value, board=0):
+        msg = [motor_id, regstart, value]
+        return self.callModule('ax', board, 0, 'writeInfo', msg)
+
+    def wheelMode(self, motor_id, board=0):
+        pass
+
+    def readInfo(self, motor_id, regstart, lenght, board=0):
+        pass
+
+    def setSpeed(self, motor_id, speed, board=0):
+        pass
+
+    def sendPacket(self, pack, board=0):
+        pass
+
+    def getVersionAx(self, board=0):
+        pass
+
+    def jointMode(self, motor_id, _min, _max, board=0):
+        pass
+
+    def setPosition(self, motor_id, pos, board=0):
+        pass
+
+    def getPosition(self, motor_id, board=0):
+        pass
