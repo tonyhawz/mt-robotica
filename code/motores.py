@@ -55,7 +55,7 @@ class Motores():
 
     def girar_marchatras(self, horario):
         ki = 3
-        kd = 3 
+        kd = 3
         if horario :
             ki = 1.8
         else :
@@ -64,3 +64,7 @@ class Motores():
         self.butia.set2MotorSpeed(config.atras, int(round(config.vgiro * ki)), config.atras, int(round(config.vgiro * kd)), 0)
         self.lock.release()
 
+    #Obtiene la pocion en (x,y) de la camara
+    def get_posicion_camara():
+        x= self.butia.getPosicion(config.id_motor_camara_X)
+        y== self.butia.getPosicion(config.id_motor_camara_Y)
