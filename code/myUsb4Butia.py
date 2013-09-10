@@ -8,7 +8,7 @@ ERROR = -1
 class MyUsb4Butia(USB4Butia):
 
     def __init__(self):
-        super(MyUsb4Butia, self).__init__()
+        USB4Butia.__init__(self)
 
     ############################## Movement calls #############################
 
@@ -146,25 +146,44 @@ class MyUsb4Butia(USB4Butia):
         return self.callModule('ax', board, 0, 'writeInfo', msg)
 
     def wheelMode(self, motor_id, board=0):
-        pass
+        msg = [motor_id]
+        return self.callModule('ax', board, 0, 'wheelMode', msg)
 
     def readInfo(self, motor_id, regstart, lenght, board=0):
-        pass
+        msg = [motor_id, regstart, lenght]
+        return self.callModule('ax', board, 0, 'readInfo', msg)
 
     def setSpeed(self, motor_id, speed, board=0):
-        pass
+        msg = [motor_id, speed]
+        return self.callModule('ax', board, 0, 'setSpeed', msg)
 
-    def sendPacket(self, pack, board=0):
-        pass
+    def sendPacket(self, motor_id, pack, board=0):
+        msg = [motor_id, pack]
+        return self.callModule('ax', board, 0, 'sendPacket', msg)
 
     def getVersionAx(self, board=0):
-        pass
+        msg = []
+        return self.callModule('ax', board, 0, 'getVersion', msg)
 
     def jointMode(self, motor_id, _min, _max, board=0):
-        pass
+        msg = [motor_id, _min, _max]
+        return self.callModule('ax', board, 0, 'jointMode', msg)
 
     def setPosition(self, motor_id, pos, board=0):
-        pass
+        msg = [motor_id, pos]
+        return self.callModule('ax', board, 0, 'setPosition', msg)
 
     def getPosition(self, motor_id, board=0):
-        pass
+        msg = [motor_id]
+        return self.callModule('ax', board, 0, 'getPosition', msg)
+
+
+def main():
+    m = MyUsb4Butia()
+    print ("firmware " + str(m.getFirmwareVersion()))
+    print m.getModulesList()
+    print "version " + str(m.callModule('ax', 0, 0, 'getVersion', []))
+    print (m.getPosition(5))
+
+if __name__ == "__main__":
+    main()
