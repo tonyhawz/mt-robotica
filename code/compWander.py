@@ -43,7 +43,7 @@ class CompWander(comp.Comp):
             self.motores.avanzar_u(self.VEL)
         else:
             self.motores.girar_horario()
-
+        self.motores.hacerPaneoCamara()
 
     def reset(self):
         pass

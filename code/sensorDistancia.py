@@ -7,11 +7,11 @@ import config
 from pybot import usb4butia
 
 class SensorDistancia(sensor.Sensor):
-    
-    u = None 
+
+    u = None
     i = None
     key = None
-    
+
     def __init__(self,data,usb4b,indice,lock):
         sensor.Sensor.__init__(self, data)
         self.u = usb4b
@@ -27,4 +27,4 @@ class SensorDistancia(sensor.Sensor):
         print ("Distancia :: " + str(tmp))
         self.data.write(self.key, tmp)
 
-    
+

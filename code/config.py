@@ -31,11 +31,11 @@ atras       = 0
 min_hsv_negro = np.array((0,0,0),np.int32)
 max_hsv_negro = np.array((256,256,50),np.int32)
 
-min_hsv_arena = np.array((0, 100, 100), np.int32)
-max_hsv_arena = np.array((100, 224, 256), np.int32)
+min_hsv_arena = np.array((0,100,100),np.int32)
+max_hsv_arena = np.array((100,224,256),np.int32)
 
-min_hsv_blanc = np.array((0, 50, 80), np.int32)
-max_hsv_blanc = np.array((100, 224, 256), np.int32)
+min_hsv_blanc = np.array((0,100,100),np.int32)
+max_hsv_blanc = np.array((100,224,256),np.int32)
 
 
 #min_hsv_blanc = np.array((0,0,91),np.int32)
@@ -65,3 +65,6 @@ alf_detect  = 20000
 
 idBoton     = 6
 
+# Variables para motores
+id_motor_camara_X=12
+id_motor_camara_Y=11

@@ -25,6 +25,9 @@ class CompCargarLata(comp.Comp):
         self.motores.girar_antihorario()
         self.motores.girar_horario()
         self.motores.detener()
+        
+	latas = self.data.read('lata::cant_latas') +1
+        self.data.write('lata::cant_latas',latas)
 
     def reset(self):
         pass
