@@ -183,7 +183,7 @@ def main():
     print ("firmware " + str(m.getFirmwareVersion()))
     print m.getModulesList()
     print "version " + str(m.callModule('ax', 0, 0, 'getVersion', []))
-    print (m.getPosition(5))
+    print(m.getPosition(5))
 
 if __name__ == "__main__":
     main()

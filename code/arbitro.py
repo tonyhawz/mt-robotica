@@ -30,8 +30,8 @@ class Arbitro(threading.Thread):
     def arbitrar(self):
         self.stopped = False
         while not self.stopped:
-            #print 'Arbitro::arbitrando'
-            ti = time.time()
+            # print 'Arbitro::arbitrando'
+            # ti = time.time()
             for c in self.comps:
                 if c.takeControl():
                     if self.current_comp.id != c.id:
@@ -44,9 +44,9 @@ class Arbitro(threading.Thread):
                         self.current_comp = c
                         self.current_comp.printTiempo(taux)
                         self.current_comp.resume()
-                    break;
-            tf = time.time()
-            delta_t = tf - ti
+                    break
+            # tf = time.time()
+            # delta_t = tf - ti
             # print 'Arbitro::arbitrando ' + str(delta_t)
             time.sleep(self.refresh_rate)
 

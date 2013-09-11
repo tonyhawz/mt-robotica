@@ -3,15 +3,15 @@ import time
 import config
 
 
-class Sensor(threading.Thread) :
-    
+class Sensor(threading.Thread):
+
     stopped = False
     data = None
     refresh_rate = config.refresh_rate
     nombre = None
 
     def __init__(self,data):
-        threading.Thread.__init__(self) 
+        threading.Thread.__init__(self)
         self.data = data
         self.nombre = 'sensor'
 
@@ -20,9 +20,9 @@ class Sensor(threading.Thread) :
         while not self.stopped :
 #            print 'Sensor::sensando'
             t0 = time.time()
-            self.action() 
+            self.action()
             tf = time.time()
-            print self.getNombre() + " - " + str(tf-t0) 
+            print self.getNombre() + " - " + str(tf-t0)
             time.sleep(self.refresh_rate)
 #        print 'Sesnor fuera while'
 

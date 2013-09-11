@@ -3,15 +3,16 @@ import time
 
 TIMEOUT = 10000
 
+
 class CompWander(comp.Comp):
 
-    timeout 	= None
-    t_antes	= None
-    estado 	= 1
-    ADELANTE 	= 0
-    GIRAR_D 	= 1
-    GIRAR_I 	= 2
-    VEL		= 400
+    timeout = None
+    t_antes = None
+    estado = 1
+    ADELANTE = 0
+    GIRAR_D = 1
+    GIRAR_I = 2
+    VEL = 400
 
     def __init__(self, data, motores):
         comp.Comp.__init__(self, data)
@@ -27,7 +28,7 @@ class CompWander(comp.Comp):
         return True
 
     def action(self):
-        print 'CompWander::action'
+        print('CompWander::action')
         deltaT = self.getTime() - self.t_antes
         self.timeout = self.timeout - deltaT
         self.t_antes = self.getTime()
@@ -49,9 +50,9 @@ class CompWander(comp.Comp):
         pass
 
     def post_stop(self):
-        print 'CompWander::post_stop'
+        print('CompWander::post_stop')
         self.timeout = TIMEOUT
-	self.estado = self.ADELANTE
+        self.estado = self.ADELANTE
 
     def getTime(self):
         return time.time()
