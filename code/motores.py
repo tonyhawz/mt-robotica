@@ -13,7 +13,7 @@ import config
 
 class Motores():
 
-    def __init__ (self, u4b, lock):
+    def __init__(self, u4b, lock):
         self.butia = u4b
         self.lock = lock
 
@@ -22,12 +22,18 @@ class Motores():
 
     def retroceder_u(self, velocidad):
         self.lock.acquire()
-        self.butia.set2MotorSpeed(config.atras, velocidad, config.atras, velocidad, 0)
+        self.butia.set2MotorSpeed(config.atras,
+            velocidad,
+            config.atras,
+            velocidad)
         self.lock.release()
 
     def avanzar_u(self, velocidad):
         self.lock.acquire()
-        self.butia.set2MotorSpeed(config.delante, velocidad, config.delante, velocidad, 0)
+        self.butia.set2MotorSpeed(config.delante,
+            velocidad,
+            config.delante,
+            velocidad)
         self.lock.release()
 
     def detener(self):
@@ -37,12 +43,18 @@ class Motores():
 
     def girar_horario(self):
         self.lock.acquire()
-        self.butia.set2MotorSpeed(config.delante, config.vgiro, config.atras, config.vgiro, 0)
+        self.butia.set2MotorSpeed(config.delante,
+            config.vgiro,
+            config.atras,
+            config.vgiro)
         self.lock.release()
 
     def girar_antihorario(self):
         self.lock.acquire()
-        self.butia.set2MotorSpeed(config.atras, config.vgiro, config.delante, config.vgiro, 0)
+        self.butia.set2MotorSpeed(config.atras,
+            config.vgiro,
+            config.delante,
+            config.vgiro)
         self.lock.release()
 
     def stop(self):

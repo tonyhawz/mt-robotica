@@ -18,8 +18,9 @@ class MyUsb4Butia(USB4Butia):
         Set the speed of 2 motors. The sense is 0 or 1, and the speed is
         between 0 and 1023
         """
-        msg = [int(leftSense), int(leftSpeed / 256.0), leftSpeed % 256,
-        int(rightSense), int(rightSpeed / 256.0), rightSpeed % 256]
+        #msg = [int(leftSense), int(leftSpeed / 256.0), leftSpeed % 256,
+        #int(rightSense), int(rightSpeed / 256.0), rightSpeed % 256]
+        msg = [int(leftSense), leftSpeed, int(rightSense), rightSpeed]
         return self.callModule('motors', board, 0, 'setvel2mtr', msg)
 
     def setMotorSpeed(self, idMotor=0, sense=0, speed=0, board=0):

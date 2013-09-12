@@ -1,4 +1,4 @@
-import threading 
+import threading
 import time
 import config
 
@@ -9,9 +9,9 @@ class Comp(threading.Thread):
     stopped = False
     paused = True
     data = None
-    id = 0 
+    id = 0
 
-    def __init__(self,data):
+    def __init__(self, data):
         threading.Thread.__init__(self)
         self.data = data
         self.state = threading.Condition()
@@ -28,7 +28,7 @@ class Comp(threading.Thread):
 
             if not self.stopped:
                 self.action()
-            time.sleep(self.refresh_rate) 
+            time.sleep(self.refresh_rate)
 
 #        threading.Thread.__init__(self)
         self.post_stop()
@@ -36,9 +36,8 @@ class Comp(threading.Thread):
     def takeControl(self):
         return True
 
-    def printTiempo(self,tiempo):
+    def printTiempo(self, tiempo):
         print str(time.time() - tiempo)
-
 
 #   Despierta el hilo para que siga ejecutando
     def resume(self):
@@ -51,7 +50,7 @@ class Comp(threading.Thread):
         with self.state:
             self.paused = True
 
-    def stop( self ):
+    def stop(self):
         self.stopped = True
         self.resume()
 
@@ -60,11 +59,11 @@ class Comp(threading.Thread):
 
     def action(self):
         print 'comp::action ' + str(time.time())
-    	pass
+        pass
 
     def reset(self):
         pass
 
-    def getNombre(self) :
+    def getNombre(self):
         return 'Comp(generico)'
 

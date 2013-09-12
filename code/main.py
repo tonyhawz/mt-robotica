@@ -19,7 +19,7 @@ from compCargarLata import CompCargarLata
 from sensorGrises import SensorGrises
 #from sensorDistancia import SensorDistancia
 #from sensorBoton import SensorBoton
-#from sensorCameraWhite import SensorCameraWhite
+from sensorCameraWhite import SensorCameraWhite
 from motores import Motores
 from myUsb4Butia import MyUsb4Butia
 
@@ -43,7 +43,7 @@ comportamientos = [
     #CompAlfombra(data, motor),
     #CompEvitar(data, motor),
     #CompCargarLata(data, motor),
-    #CompLata(data, motor, lock_u4b),
+    CompLata(data, motor, lock_u4b),
     CompWander(data, motor)
     ]
 
@@ -62,6 +62,7 @@ a.start()
 #    SensorCameraWhite(data, lock_u4b)]
 
 sensores = [
+    SensorCameraWhite(data, lock_u4b)
     #Sensor(data),
     #SensorGrises(data, u4b, config.grisDer, lock_u4b),
     #SensorGrises(data, u4b, config.grisIzq, lock_u4b)

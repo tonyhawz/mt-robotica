@@ -4,7 +4,7 @@ refresh_rate = .01
 
 # variables de configuracion para la camara
 #camara      = -1
-camara = 'video-2013-07-09-1373414462.avi'
+camara = '../vides/video-1378342226.29.avi'
 
 ancho       = 160
 alto        = 120
@@ -22,8 +22,8 @@ max_range   = (360, 256, 50)
 #max_range   = (360, 12, 10)
 
 # variables para el control de los motores
-VEL         = 300
-vgiro       = 200
+VEL         = 700
+vgiro       = 500
 delante     = 1
 atras       = 0
 
@@ -68,3 +68,6 @@ idBoton     = 6
 # Variables para motores
 id_motor_camara_X=12
 id_motor_camara_Y=11
+
+motores_timeout_adelante = 10
+motores_timeout_girar = 5
