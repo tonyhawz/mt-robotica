@@ -4,7 +4,7 @@ refresh_rate = .01
 
 # variables de configuracion para la camara
 #camara      = -1
-camara = '../vides/video-1378342226.29.avi'
+camara = '../videos/video-1378342226.29.avi'
 
 ancho       = 160
 alto        = 120
@@ -34,9 +34,8 @@ max_hsv_negro = np.array((256,256,50),np.int32)
 min_hsv_arena = np.array((0,100,100),np.int32)
 max_hsv_arena = np.array((100,224,256),np.int32)
 
-min_hsv_blanc = np.array((0,100,100),np.int32)
-max_hsv_blanc = np.array((100,224,256),np.int32)
-
+min_hsv_blanc = np.array((0, 50, 80), np.int32)
+max_hsv_blanc = np.array((100, 224, 256), np.int32)
 
 #min_hsv_blanc = np.array((0,0,91),np.int32)
 #max_hsv_blanc = np.array((256,91,256),np.int32)
