@@ -6,6 +6,8 @@ sys.path.append("../code/")
 
 from myUsb4Butia import MyUsb4Butia
 
+T_SLEEP = 0.5
+
 
 class PinzaTest():
 
@@ -23,21 +25,46 @@ class PinzaTest():
         self.b.jointMode(motor_id, 0, 1023)
         self.b.setSpeed(motor_id, 200)
 
+    def setSpeed(self, speed):
+        self.speed = speed
+
+    def setPosition(self, motor_id, pos, speed=None):
+        self.b.jointMode(motor_id, 0, 1023)
+        if speed is None:
+            self.b.setSpeed(motor_id, speed)
+        else:
+            self.b.setSpeed(motor_id, self.speed)
+        self.b.setPosition(motor_id, pos)
+
 
 def main(argv):
     m = PinzaTest()
     m.initMotors()
+    m.setSpeed(200)
+
     print "moviendo pinza izq"
-    m.b.setPosition(8, 511)
-    time.sleep(1)
+    m.setPosition(8, 511)
+    time.sleep(T_SLEEP)
     print "moviendo pinza der"
-    m.b.setPosition(6, 511)
-    time.sleep(1)
+    m.setPosition(6, 511)
+    time.sleep(T_SLEEP)
     print "moviendo pinza izq"
-    m.b.setPosition(5, 511)
-    time.sleep(1)
+    m.setPosition(5, 511)
+    time.sleep(T_SLEEP)
     print "moviendo pinza der"
-    m.b.setPosition(7, 511)
+    m.setPosition(7, 511)
+
+    time.sleep(2)
+    # posicionandose para navegar
+    time.sleep(T_SLEEP)
+    m.setPosition(5, 0)
+    time.sleep(T_SLEEP)
+    m.setPosition(7, 1023)
+
+    time.sleep(T_SLEEP)
+    m.setPosition(8, 311)
+    time.sleep(T_SLEEP)
+    m.setPosition(6, 700)
 
 
 if __name__ == "__main__":

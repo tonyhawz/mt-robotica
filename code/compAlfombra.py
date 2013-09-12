@@ -29,7 +29,7 @@ class CompAlfombra(comp.Comp):
         try:
             v1 = self.data.read('SensorGrises::' + str(self.indice_izq))
         except KeyError:
-            #vi = 0
+            vi = 0
         try:
             v2 = self.data.read('SensorGrises::' + str(self.indice_der))
         except KeyError:

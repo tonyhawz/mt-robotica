@@ -12,7 +12,7 @@ class CompWander(comp.Comp):
     ADELANTE = 0
     GIRAR_D = 1
     GIRAR_I = 2
-    VEL = 400
+    VEL = 1000
 
     def __init__(self, data, motores):
         comp.Comp.__init__(self, data)
@@ -44,7 +44,7 @@ class CompWander(comp.Comp):
             self.motores.avanzar_u(self.VEL)
         else:
             self.motores.girar_horario()
-        self.motores.hacerPaneoCamara()
+        #self.motores.hacerPaneoCamara()
 
     def reset(self):
         pass

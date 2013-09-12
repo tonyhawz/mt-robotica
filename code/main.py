@@ -40,10 +40,10 @@ data = Data()
 #  CompBoton(data, motor),
 
 comportamientos = [
-    CompAlfombra(data, motor),
-    CompEvitar(data, motor),
-    CompCargarLata(data, motor),
-    CompLata(data, motor, lock_u4b),
+    #CompAlfombra(data, motor),
+    #CompEvitar(data, motor),
+    #CompCargarLata(data, motor),
+    #CompLata(data, motor, lock_u4b),
     CompWander(data, motor)
     ]
 
@@ -62,9 +62,9 @@ a.start()
 #    SensorCameraWhite(data, lock_u4b)]
 
 sensores = [
-    Sensor(data),
-    SensorGrises(data, u4b, config.grisDer, lock_u4b),
-    SensorGrises(data, u4b, config.grisIzq, lock_u4b)
+    #Sensor(data),
+    #SensorGrises(data, u4b, config.grisDer, lock_u4b),
+    #SensorGrises(data, u4b, config.grisIzq, lock_u4b)
     ]
 
 hilos.append(a)
