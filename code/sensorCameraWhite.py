@@ -62,6 +62,18 @@ class SensorCameraWhite(sensor.Sensor):
         # shape[1] = config.alto
         # self.zeros = np.zeros(shape,np.uint8)
 
+    def mascaras(self, img=None):
+        h, w = self.shape
+        largo = int(w * config.camara_ratio_mascaras_laterales)
+        # print str(h) + ' :: ' + str(w) + ' :: ' + str(largo)
+        i = ((0, 0), (largo, 0), (largo, h), (0, h))
+        i = np.int32(np.around(i))
+        d = ((w - largo, 0), (w, 0), (w, h), (w - largo, h))
+        d = np.int32(np.around(d))
+        cv2.drawContours(img, [d], 0, (0, 255, 255), 1)
+        cv2.drawContours(img, [i], 0, (0, 255, 255), 1)
+        return (i, d)
+
     def run(self):
         self.stopped = False
         while not self.stopped:
@@ -88,6 +100,7 @@ class SensorCameraWhite(sensor.Sensor):
         if not f:
             self.video = cv2.VideoCapture(config.camara)
         else:
+            m_i, m_d = self.mascaras(img)
             # if self.resize and f:
                 # img = cv2.resize(img,(config.ancho,config.alto))
             old_zeros = self.zeros
@@ -109,7 +122,8 @@ class SensorCameraWhite(sensor.Sensor):
             '''
             #mask_white = np.zeros(img.shape,np.uint8)
             mask_white = np.zeros(self.shape, np.uint8)
-
+            mask_i = np.zeros(self.shape, np.uint8)
+            mask_d = np.zeros(self.shape, np.uint8)
             cajas = []
             big_cnt_white = None
             big_cnt_white_area = 0
@@ -126,8 +140,18 @@ class SensorCameraWhite(sensor.Sensor):
                 #cv2.drawContours(img,contours,0,(0,0,255),-1)
                 cv2.drawContours(mask_white,
                     [big_cnt_white], 0, (255, 0, 0), -1)
-                cv2.drawContours(img,
-                    [big_cnt_white], 0, (255, 255, 0), 3)
+                if self.display:
+                    cv2.drawContours(img,
+                        [big_cnt_white], 0, (255, 255, 0), 3)
+                cv2.drawContours(mask_i,
+                    [m_i], 0, (255, 0, 0), -1)
+                cv2.drawContours(mask_d,
+                    [m_d], 0, (255, 0, 0), -1)
+                mask_i = cv2.bitwise_and(mask_i, mask_white)
+                mask_d = cv2.bitwise_and(mask_d, mask_white)
+            else:
+                pass
+                # no hay mascara blanca
                 #rect = cv2.minAreaRect(cnt)
                 #w,h = rect[1]
                 #rect = (rect[0],(w*1.5,h*1.5),rect[2])
@@ -139,7 +163,6 @@ class SensorCameraWhite(sensor.Sensor):
                 #cajas.append(box)
             #mean = cv2.mean(img,mask = img_bw)
             #mask = cv2.bitwise_not(mask)
-
             contours = self.detectar_contornos(img_hsv,
                 config.min_hsv_negro, config.max_hsv_negro, mask_white)
 
@@ -172,6 +195,7 @@ class SensorCameraWhite(sensor.Sensor):
             if self.display:
                 cv2.drawContours(img, contours, -1, (0, 255, 255), 1)
 
+            # dibujas las cajas en la mascara
             for cnt in contours:
                 rect = cv2.minAreaRect(cnt)
                 box = cv2.cv.BoxPoints(rect)
@@ -242,6 +266,7 @@ class SensorCameraWhite(sensor.Sensor):
                 cv2.imshow("ventana", img)
             if config.dual_display:
                 cv2.imshow("ventana", cu.join_images(mask, img))
+                cv2.imshow("ventana", cu.join_images(mask_i, img))
             #tf = time.time()
             #delta_t = tf - ti
             #print 'SensorCameraWhite::action ' + str(delta_t)

@@ -14,6 +14,7 @@ class PinzaTest():
     def __init__(self):
         #super(PinzaTest, self).__init__()
         self.b = MyUsb4Butia()
+        self.speed = 200
 
     def initMotors(self):
         self.initMotorPinza(5)
@@ -23,7 +24,7 @@ class PinzaTest():
 
     def initMotorPinza(self, motor_id):
         self.b.jointMode(motor_id, 0, 1023)
-        self.b.setSpeed(motor_id, 200)
+        self.b.setSpeed(motor_id, self.speed)
 
     def setSpeed(self, speed):
         self.speed = speed
