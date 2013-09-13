@@ -11,7 +11,7 @@ import Actuator
 comm_tty = CommSerial() 
 comm_tty.connect()
 actuator = Actuator.Actuator(comm_tty)
-motor_id = 8
+motor_id = 7
 
 actuator.reset(motor_id)
 time.sleep(2)

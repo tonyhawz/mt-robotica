@@ -8,7 +8,7 @@ comm_tty = CommSerial()  #TODO read a configuration file to use the correct para
 comm_tty.connect()
 actuator_tty = Actuator.Actuator(comm_tty)
 
-motorD = 12
+motorD = 8
 motorI = 6 
 
 actuator_tty.set_AngleLimit(motorD, 0x0000, 0x0000)

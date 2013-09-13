@@ -20,13 +20,17 @@ class SensorCameraWhite(sensor.Sensor):
     video = None
     zeros = None
 
-    detectar_tacho = True
+    detectar_tacho = False
     dibujar_area = False
+
+    area_imagen = None
+    area_minima = None
 
     def __init__(self, data, lock):
         sensor.Sensor.__init__(self, data)
         self.key = 'SensorVision::init'
         self.lock = lock
+        print 'Abriendo camara ' + str(config.camara)
         self.video = cv2.VideoCapture(config.camara)
         if self.video is None:
             print("error al leer el video")
@@ -41,6 +45,10 @@ class SensorCameraWhite(sensor.Sensor):
         img_bw = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         self.zeros = np.zeros(img_bw.shape, np.uint8)
         self.shape = img_bw.shape
+        h, w = self.shape
+        self.area_imagen = h * w
+        self.area_minima = self.area_imagen * config.camara_min_ratio_area
+        print 'MINIMA AREA ' + str(self.area_minima)
         self.display = config.display or config.dual_display
         # self.resize = False
         self.data.write('Camara::tacho_x', 0)
@@ -177,8 +185,9 @@ class SensorCameraWhite(sensor.Sensor):
 
             for cnt in contours:
                 area = cv2.contourArea(cnt)
+
                 #print area
-                if area > config.min_area:
+                if area > self.area_minima:
                     self.data.write('Camara::area', area)
                     rect = cv2.minAreaRect(cnt)
                     box = cv2.cv.BoxPoints(rect)
@@ -194,6 +203,7 @@ class SensorCameraWhite(sensor.Sensor):
                         x_old = x
 
             if self.display:
+                # dibujar contonros
                 cv2.drawContours(img, [c], 0, (0, 255, 0), 3)
 
             if c is not None:
@@ -241,7 +251,7 @@ class SensorCameraWhite(sensor.Sensor):
 
 
 def main(argv):
-    config.camara = ''
+    #config.camara = ''
     try:
         opts, args = getopt.getopt(argv[1:], "hi:o:", ["ifile=", "ofile="])
     except getopt.GetoptError:
@@ -265,7 +275,7 @@ def main(argv):
     config.dual_display = True
     m = SensorCameraWhite(data, lock)
     m.dibujar_area = True
-    m.detectar_tacho = True
+    m.detectar_tacho = False
     # m.enable_resize()
     while True:
         m.action()

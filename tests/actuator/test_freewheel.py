@@ -29,7 +29,7 @@ comm_tty.connect()
 #actuator = Actuator.Actuator(comm)
 actuator_tty = Actuator.Actuator(comm_tty)
 #actuator_tty.setear_id(6)
-idMotor = 6
+idMotor = 8
 
 #actuator_tty.move_actuator(6, 0 , 32)
 #actuator_tty.set_speed_actuator(motor_id, 256, 0)

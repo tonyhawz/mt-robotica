@@ -10,6 +10,7 @@ ancho       = 160
 alto        = 120
 
 # variables para el control de la posicion de la latita
+camara_min_ratio_area = 0.015
 min_area    = 200
 area_lata   = 1000000
 min_x       = (ancho / 2.0) - (ancho / 10.0)
