@@ -2,15 +2,16 @@ import comp
 import time
 import config
 
-CERO        = 0
-UNO         = 1
+CERO = 0
+UNO = 1
+
 
 class CompEvitar(comp.Comp):
 
     timeout_ini = 4
-    timeout 	= None
-    t_antes	= None
-    estado 	= None
+    timeout = None
+    t_antes = None
+    estado = None
 
     def __init__(self, data, motores):
         comp.Comp.__init__(self, data)
@@ -20,22 +21,28 @@ class CompEvitar(comp.Comp):
         self.t_antes = self.getTime()
 
     def takeControl(self):
-        if self.estado == config.cero  :
+        try:
+            cargando = self.data.read('CargandoLata::')
+            if cargando is 'TRUE':
+                return False
+        except KeyError:
+            pass
+        if self.estado is config.cero:
             dist = 0
-            try :
+            try:
                 dist = self.data.read('SensorDistancia::' + str(config.idDist))
-            except KeyError :
+            except KeyError:
                 dist = 0
             cargando = self.data.read('CargandoLata::')
             self.t_antes = self.getTime()
-            if dist > config.dist_min  and not (cargando =='1'):
+            if dist > config.dist_min and cargando is not '1':
                 self.horario = False
                 self.estado = config.uno
                 self.timeout = self.timeout_ini
                 return True
             else:
                 return False
-        else :
+        else:
             return True
 
     def action(self):
@@ -45,12 +52,10 @@ class CompEvitar(comp.Comp):
         self.t_antes = self.getTime()
 
         if (self.timeout < 0):
-            self.estado = (self.estado +1) % 2
-
-        if ( self.estado == config.uno ) :
+            self.estado = (self.estado + 1) % 2
+        if (self.estado == config.uno):
 #            self.motores.girar_marchatras(self.horario)
             self.motores.girar_marchatras(True)
-
 
     def reset(self):
         self.timeout = self.timeout_ini

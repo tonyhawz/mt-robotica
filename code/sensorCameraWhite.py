@@ -352,6 +352,7 @@ def main(argv):
     # m.enable_resize()
     while True:
         m.action()
+        #print(data.read)
         v = cv2.waitKey(50) % 0x100
         if v == 27:
             break

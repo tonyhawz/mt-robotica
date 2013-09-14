@@ -21,15 +21,22 @@ class CompWander(comp.Comp):
         self.estado = self.ADELANTE
         self.t_antes = self.getTime()
         self.VEL = config.VEL
+        self.data = data
 
     def getNombre(self):
         return 'CompWander'
 
     def takeControl(self):
+        try:
+            cargando = self.data.read('CargandoLata::')
+            if cargando is 'TRUE':
+                return False
+        except KeyError:
+            pass
         return True
 
     def action(self):
-        self.printStatus()
+        #self.printStatus()
         delta_t = self.getTime() - self.t_antes
         self.timeout = self.timeout - delta_t
         self.t_antes = self.getTime()

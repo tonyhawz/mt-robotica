@@ -66,6 +66,20 @@ class Motores():
         return 'motores'
 
     def girar_marchatras(self, horario):
+        i = 1
+        d = 1
+        if horario:
+            i = 0
+        elif not horario:
+            d = 0
+        self.lock.acquire()
+        self.butia.set2MotorSpeed(i,
+            config.vgiro,
+            d,
+            config.vgiro, 0)
+        self.lock.release()
+
+    def girar_marchatras_viejo(self, horario):
         ki = 3
         kd = 3
         if horario:

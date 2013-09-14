@@ -47,21 +47,27 @@ class PinzaTest():
         self.setPosition(6, 280)
 
     def aCargar(self):
+        self.setSpeed(200)
         self.setPosition(5, 200)
         self.setPosition(7, 811)
-        self.setPosition(8, 511)
-        self.setPosition(6, 511)
+        #self.setPosition(8, 511)
+        #self.setPosition(6, 511)
+        self.setPosition(8, 550)
+        self.setPosition(6, 480)
 
     def posNeutral(self):
+        self.setSpeed(200)
         self.setPosition(8, 511)
         self.setPosition(6, 511)
 
     def cargar(self):
         self.setPosition(5, 511)
         self.setPosition(7, 511)
+
         time.sleep(.5)
-        self.setPosition(8, 123)
-        self.setPosition(6, 900)
+        self.setSpeed(400)
+        self.setPosition(8, 123, 400)
+        self.setPosition(6, 900, 400)
 
 
 def main(argv):

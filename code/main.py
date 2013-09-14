@@ -17,12 +17,12 @@ from compLata import CompLata
 #from compBoton import CompBoton
 from compCargarLata import CompCargarLata
 #from pybot import usb4butia
-from sensorGrises import SensorGrises
 #from sensorDistancia import SensorDistancia
 #from sensorBoton import SensorBoton
 from sensorCameraWhite import SensorCameraWhite
 from motores import Motores
 from myUsb4Butia import MyUsb4Butia
+from motoresPinza import MotoresPinza
 
 
 global hilos
@@ -31,7 +31,7 @@ global lock_u4b
 lock_u4b = threading.Lock()
 u4b = MyUsb4Butia()
 motor = Motores(u4b, lock_u4b)
-
+motorPinza = MotoresPinza(u4b, lock_u4b)
 hilos = []
 
 print ('Press Ctrl+C')
@@ -44,7 +44,7 @@ comportamientos = [
     #CompAlfombra(data, motor),
     CompLona(data, motor),
     #CompEvitar(data, motor),
-    CompCargarLata(data, motor),
+    CompCargarLata(data, motorPinza,motor),
     CompLata(data, motor, lock_u4b),
     CompWander(data, motor)
     ]
@@ -64,7 +64,8 @@ a.start()
 #    SensorCameraWhite(data, lock_u4b)]
 
 sensores = [
-    SensorCameraWhite(data, lock_u4b)
+    SensorCameraWhite(data, lock_u4b),
+    #SensorCamaraPos(data,u4b, lock_u4b)
     #Sensor(data),
     #SensorGrises(data, u4b, config.grisDer, lock_u4b),
     #SensorGrises(data, u4b, config.grisIzq, lock_u4b)

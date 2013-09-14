@@ -34,6 +34,12 @@ class CompLona(comp.Comp):
         return [v1, v2]
 
     def takeControl(self):
+        try:
+            cargando = self.data.read('CargandoLata::')
+            if cargando is 'TRUE':
+                return False
+        except KeyError:
+            pass
         if self.estado == config.cero:
             v1, v2 = self.leerSensores()
             self.t_antes = self.getTime()
