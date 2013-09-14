@@ -2,18 +2,16 @@
 import sys
 import time
 
-sys.path.append("../code/")
-
 from myUsb4Butia import MyUsb4Butia
 
 T_SLEEP = 0.5
 
 
-class PinzaTest():
+class MotoresPinza():
 
-    def __init__(self):
+    def __init__(self, butia):
         #super(PinzaTest, self).__init__()
-        self.b = MyUsb4Butia()
+        self.b = butia
         self.speed = 200
 
     def initMotors(self):
@@ -56,16 +54,9 @@ class PinzaTest():
         self.setPosition(8, 511)
         self.setPosition(6, 511)
 
-    def cargar(self):
-        self.setPosition(5, 511)
-        self.setPosition(7, 511)
-        time.sleep(.5)
-        self.setPosition(8, 123)
-        self.setPosition(6, 900)
-
 
 def main(argv):
-    m = PinzaTest()
+    m = MotoresPinza(MyUsb4Butia())
     m.initMotors()
     m.setSpeed(200)
 
@@ -73,11 +64,6 @@ def main(argv):
 
     time.sleep(3)
     m.aCargar()
-    time.sleep(2)
-    m.cargar()
-
-    time.sleep(1)
-    m.abierta()
 
     #print "moviendo pinza izq"
     #m.setPosition(8, 511)

@@ -2,6 +2,7 @@ import comp
 import time
 import config
 
+
 class CompLata(comp.Comp):
 
     def __init__(self, data, motores, lock_u4b):
@@ -45,7 +46,7 @@ class CompLata(comp.Comp):
                 self.motores.girar_camara_izquierda()
                 self.motores.avanzar_u(config.VEL)
             elif (self.data.read('SensorCamPos::pos_x')< 0 and self.data.read('Camara::lata_x') > config.max_x):
-                #camara girada a la derecha y lata a la derecha de la camara solo giro el robot               
+                #camara girada a la derecha y lata a la derecha de la camara solo giro el robot
                 print "derecha"
                 self.motores.girar_horario()
             elif (self.data.read('SensorCamPos::pos_x')> 0 and self.data.read('Camara::lata_x') > config.max_x):

@@ -103,3 +103,19 @@ class Motores():
             config.cero_posx_camara)
         self.butia.setPosition(config.id_motor_camara_y,
             config.cero_posy_camara)
+
+    def posicion_levantar(self):
+        speed = config.motor_pinza_speed
+        self.setPosition(config.motor_pinza_d_2, 511, speed)
+        self.setPosition(6, 511, speed)
+        self.setPosition(5, 200, speed)
+        self.setPosition(7, 811, speed)
+
+    def initMotorPinza(self, motor_id, speed):
+        self.butia.jointMode(motor_id, 0, 1023)
+        self.bitia.setSpeed(motor_id, speed)
+
+    def setPositionPinza(self, motor_id, pos, speed=None):
+        self.initMotorPinza(motor_id, speed)
+        self.butia.setPosition(motor_id, pos)
+

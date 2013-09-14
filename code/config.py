@@ -28,17 +28,17 @@ max_range   = (360, 256, 50)
 #max_range   = (360, 12, 10)
 
 # variables para el control de los motores
-VEL         = 700
+VEL         = 500
 vgiro       = 500
 delante     = 1
 atras       = 0
 
 
-min_hsv_negro = np.array((0,0,0),np.int32)
-max_hsv_negro = np.array((256,256,50),np.int32)
+min_hsv_negro = np.array((0, 0, 0), np.int32)
+max_hsv_negro = np.array((256, 256, 50), np.int32)
 
-min_hsv_arena = np.array((0,100,100),np.int32)
-max_hsv_arena = np.array((100,224,256),np.int32)
+min_hsv_arena = np.array((0, 100, 100), np.int32)
+max_hsv_arena = np.array((100, 224, 256), np.int32)
 
 min_hsv_blanc = np.array((0, 50, 80), np.int32)
 max_hsv_blanc = np.array((100, 224, 256), np.int32)
@@ -71,9 +71,20 @@ alf_detect  = 20000
 idBoton     = 6
 
 # Variables para motores
-id_motor_camara_X=12
-id_motor_camara_Y=11
+id_motor_camara_X = 12
+id_motor_camara_Y = 11
 
 motores_timeout_adelante = 10
 motores_timeout_girar = 5
 
+motor_pinza_speed = 200
+motor_pinza_d_1 = 6
+motor_pinza_d_2 = 5
+motor_pinza_i_1 = 8
+motor_pinza_i_2 = 7
+
+motor_volcadora = 13
+
+
+motor_camara_x_pos = 511
+motor_camara_y_pos = 0
