@@ -1,4 +1,4 @@
-import comp 
+import comp
 import time
 import config
 
@@ -17,19 +17,19 @@ class CompEvitar(comp.Comp):
         self.timeout = self.timeout_ini
         self.motores = motores
         self.estado = config.cero
-        self.t_antes = self.getTime() 
+        self.t_antes = self.getTime()
 
     def takeControl(self):
         if self.estado == config.cero  :
-            dist = 0 
-            try : 
+            dist = 0
+            try :
                 dist = self.data.read('SensorDistancia::' + str(config.idDist))
-            except KeyError : 
+            except KeyError :
                 dist = 0
-
+            cargando = self.data.read('CargandoLata::')
             self.t_antes = self.getTime()
-            if dist > config.dist_min :
-                self.horario = False 
+            if dist > config.dist_min  and not (cargando =='1'):
+                self.horario = False
                 self.estado = config.uno
                 self.timeout = self.timeout_ini
                 return True
@@ -46,7 +46,7 @@ class CompEvitar(comp.Comp):
 
         if (self.timeout < 0):
             self.estado = (self.estado +1) % 2
-        
+
         if ( self.estado == config.uno ) :
 #            self.motores.girar_marchatras(self.horario)
             self.motores.girar_marchatras(True)

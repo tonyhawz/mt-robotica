@@ -44,22 +44,24 @@ TORQUE_LIMIT_CMD = 0x22
 TORQUE_ENABLE_CMD = 0x18
 PRESENT_POSITION = 0x24
 
+CCW_CMD = 0x08
+
 class Actuator:
 
     def __init__(self, communication):
         self.communication = communication
 
     def checksum_check(self, msg):
-        checksum = 0    
+        checksum = 0
         for i in range(2, len(msg)):
             checksum = (checksum + msg[i]) % 256
         checksum = 255 - checksum
         return checksum
 
     def make_msg(self, id, instruction, parameters):
-        msg = []    
-        length_field = len(parameters) + 2    
-        msg = [0xff, 0xff, id, length_field, instruction] + parameters 
+        msg = []
+        length_field = len(parameters) + 2
+        msg = [0xff, 0xff, id, length_field, instruction] + parameters
         checksum = self.checksum_check(msg)
         msg.append(checksum)
         return msg
@@ -74,32 +76,43 @@ class Actuator:
 
     def set_speed_actuator(self, id, angular_speed, CW_bit):
         '''
-        
+
         '''
         angular_speed_low = angular_speed & 0xff
         angular_speed_high = (angular_speed & 0xff00) >> 8
         angular_speed_high = angular_speed_high + 0x04 * CW_bit
         msg = self.make_msg(id, WRITE_DATA, [MOVING_SPEED_CMD, angular_speed_low, angular_speed_high])
-        self.communication.send_msg(msg)  
+        self.communication.send_msg(msg)
+
+    #Setear la posición angular máxima en la que opera el motor. Si la máxima (CCW)
+    #y la mínima (CW) son ambas 0 se entra en modo de giro continuo.
+    #0x3ff equivale a 300º, entre 300º y 360º es ángulo ciego, sólo se pasa por él en
+    #caso de giro continuo.
+    #ccw_position de 16 bits
+    def set_ccw(self, id, ccw_position):
+        ccw_position_low = ccw_position & 0xff
+        ccw_position_high = (ccw_position & 0xff00) >> 8
+        msg = self.make_msg(id, WRITE_DATA, [CCW_CMD,ccw_position_low, ccw_position_high])
+        self.communication.send_msg(msg)
 
 
-        
+
     def set_speed_actuator_RW(self, id, angular_speed, CW_bit):
         angular_speed_low = angular_speed & 0xff
         angular_speed_high = (angular_speed & 0xff00) >> 8
         angular_speed_high = angular_speed_high + 0x04 * CW_bit
         msg = self.make_msg(id, REG_WRITE, [MOVING_SPEED_CMD, angular_speed_low, angular_speed_high])
-        self.communication.send_msg(msg)  
-        
-        
+        self.communication.send_msg(msg)
+
+
     def led_state_change(self, id, led_state):
         msg = self.make_msg(id, WRITE_DATA, [TURN_LED_CMD, led_state])
         self.communication.send_msg(msg)
 
     def setear_id(self, idaponer):
         msg = self.make_msg(0xFE, WRITE_DATA, [0x03, idaponer])
-        self.communication.send_msg(msg) 
-  
+        self.communication.send_msg(msg)
+
     def set_AngleLimit(self, id, CW_angle, CCW_angle):
         '''
         esto sirve para ponerlo en modo de giro libre
@@ -113,7 +126,7 @@ class Actuator:
 
     def set_voltage(self, idMotor, V_min, V_max):
         '''
-        COnfigura el registro VOLTAGE y VOLTAGE + 1 a los valores V_min x 10 y V_max x 10 
+        COnfigura el registro VOLTAGE y VOLTAGE + 1 a los valores V_min x 10 y V_max x 10
         respectivamente en el motor de id = idMotor
         '''
         msg = self.make_msg(idMotor, WRITE_DATA, [VOLTAGE_CMD, (V_min * 10), (V_max * 10)])
@@ -132,9 +145,9 @@ class Actuator:
         if (dir != 0):
             dir = 1
         else :
-            dir = -1 
+            dir = -1
         print alto
-        alto = alto << 8  
+        alto = alto << 8
         total = alto + ord(aux[0])
         print total
         print "/probando"
@@ -149,7 +162,7 @@ class Actuator:
         # faltaria procesar el byte recibido en una saliad de voltaje en Volts
         final = (float)(ord(aux[0])) / 10
         return final
-    
+
     def consultar_torqueMaximo(self, idMotor):
         self.communication.flushInput()  # vacia el buffer de datos de entrada
         # msg = self.make_msg(idMotor, READ_DATA, [MAX_TORQUE_CMD, 0x02]) # parametros =[dir de memoria inicial, bytes a leer]
@@ -159,9 +172,9 @@ class Actuator:
         # faltaria procesar el byte recibido en una saliad de voltaje en Volts
         print "probando"
         # aux2 = (hex(ord(aux[1])))
-        alto = ord(aux[1]) & 0x3 
+        alto = ord(aux[1]) & 0x3
         print alto
-        alto = alto << 8  
+        alto = alto << 8
         total = alto + ord(aux[0])
         print total
         print "/probando"
@@ -176,8 +189,8 @@ class Actuator:
             torque_high = (maxTorque & 0xff00) >> 8
             msg = self.make_msg(idMotor, WRITE_DATA, [MAX_TORQUE_CMD, torque_low, torque_high])
             msg2 = self.make_msg(idMotor, WRITE_DATA, [TORQUE_LIMIT_CMD, torque_low, torque_high])
-        self.communication.send_msg(msg)          
-        self.communication.send_msg(msg2)          
+        self.communication.send_msg(msg)
+        self.communication.send_msg(msg2)
 
     def test (self, idMotor):
         self.communication.flushInput()
@@ -191,21 +204,21 @@ class Actuator:
     def setTorque(self, idMotor, enable):
         if (enable):
             torque = 0x1
-        else : 
+        else :
             torque = 0x0
         msg = self.make_msg(idMotor, WRITE_DATA, [TORQUE_ENABLE_CMD, torque])
         self.communication.send_msg(msg)
 
     # def action(self,idMotor):
-        
+
     def action(self):
         msg = self.make_msg(0xFE , ACTION, [])
         self.communication.send_msg(msg)
-        
+
     def mover_2_motoresA(self, idI, idD, Vel, CW_bit, radio, distancia, k):
         '''
         Funcion Para mover 2 motores hacia adelante o atras con misma velocidad
-        Parametros: 
+        Parametros:
           idI:    id motor izquierda
           idD:    id motor Derecha
           Vel:    velocidad Angular
@@ -218,52 +231,52 @@ class Actuator:
             k = 1
         # Seteo los margenes antihorario y horario en cero para estar en rueda libre.
         self.set_AngleLimit(idI, 0x0000, 0x0000)
-        self.set_AngleLimit(idI, 0x0000, 0x0000)    
-        
-        diametroRueda = 2 * 3.1416 * radio 
+        self.set_AngleLimit(idI, 0x0000, 0x0000)
+
+        diametroRueda = 2 * 3.1416 * radio
         print diametroRueda
-        
+
         # Paso mi velocidad a RPS
         Vel2 = ((float(Vel) * 114.0) / 0x3ff) / 60.0
-        # calculo cantidad de tiempo que me tengo que mover a la velocidad dada para llegar a la distancia pedida. 
-        t = distancia / (k * Vel2 * diametroRueda) 
-        # Seteo las velocidades de cada Motor con REG_WRITE    
-        
-        aux_bit = 1 
+        # calculo cantidad de tiempo que me tengo que mover a la velocidad dada para llegar a la distancia pedida.
+        t = distancia / (k * Vel2 * diametroRueda)
+        # Seteo las velocidades de cada Motor con REG_WRITE
+
+        aux_bit = 1
         if (CW_bit == 1):
-            aux_bit = 0 
-        
+            aux_bit = 0
+
         self.set_speed_actuator_RW(idI, Vel, CW_bit)
         self.set_speed_actuator_RW(idD, Vel, aux_bit)
-        # Activo los mensajes (se van a mover ya que estan en modo rueda libre y les di una velocidad)    
+        # Activo los mensajes (se van a mover ya que estan en modo rueda libre y les di una velocidad)
         self.action()
-        # Seteo las velocidades a cero de cada Motor con REG_WRITE para activarlo cuando se termine el tiempo aun    
+        # Seteo las velocidades a cero de cada Motor con REG_WRITE para activarlo cuando se termine el tiempo aun
         self.set_speed_actuator_RW(idI, 0, CW_bit)
         self.set_speed_actuator_RW(idD, 0, CW_bit)
         # espero el tiempo especificado
         time.sleep(t)
         # Pongo en cero la velocidad
         self.action()
-        
-    
-    def girar(self, angulo, idI, idD, Vel, der, radio, radioCM, k):  # angulo que se quiere girar, ids de los motores, velocidad, derecha 
+
+
+    def girar(self, angulo, idI, idD, Vel, der, radio, radioCM, k):  # angulo que se quiere girar, ids de los motores, velocidad, derecha
         '''
         # Funcion Para girar determinado angulo con Sentido
         #
         #    Parametros: idI: id motor izquierda
-        #                idD: id motor Derecha    
+        #                idD: id motor Derecha
         #                angulo: angulo a girar
         #                Vel: velocidad Angular
         #                der: vale uno si giro hacia derecha 0 caso izquierda
         #                radio:radio Rueda
         #                radioCM: distancia de la rueda respecto al centro de masa (asumo ambas ruedas equidistantes)
         #                k: constante de ajuste empirica
-        # Asumimos rodadura sin deslizar( punto de contacto con el suelo tiene v=0, f_roz estatico), y probaremos valores para estar en dicha condicion. 
+        # Asumimos rodadura sin deslizar( punto de contacto con el suelo tiene v=0, f_roz estatico), y probaremos valores para estar en dicha condicion.
         '''
         # Seteo los margenes antihorario y horario en cero para estar en rueda libre.
         self.set_AngleLimit(idI, 0x0000, 0x0000)
-        self.set_AngleLimit(idD, 0x0000, 0x0000)    
-        
+        self.set_AngleLimit(idD, 0x0000, 0x0000)
+
         if (der == 1):
             print "der = 1"
             self.set_speed_actuator_RW(idI, Vel, 0)
@@ -273,20 +286,20 @@ class Actuator:
             self.set_speed_actuator_RW(idI, Vel, 1)
             self.set_speed_actuator_RW(idD, Vel, 1)
         # Paso mi velocidad a RPS
-        Vel2 = ((float(Vel) * 114.0) / 0x3ff) / 60.0    
+        Vel2 = ((float(Vel) * 114.0) / 0x3ff) / 60.0
         # Segmento de Cfa que se debe recorrer girando el angulo deseado teniendo el centro de masa fijo
         cfa = (angulo * 3.1416 / 180.0) * radioCM  # Spase el angulo a radianes
-        # tiempo que debe estar la rueda funcionando para recorrer esa cfa    
+        # tiempo que debe estar la rueda funcionando para recorrer esa cfa
         t = cfa / (k * (Vel2 * 2 * 3.1416 * radio))  # Falta fijarse en q unidad estaria la Vel.
-        # cargo valores     
+        # cargo valores
         self.action()
-        # configuro la velocidad en 0 para cargarse al finalizar el tiempo     
+        # configuro la velocidad en 0 para cargarse al finalizar el tiempo
         self.set_speed_actuator_RW(idI, 0, 0)
         self.set_speed_actuator_RW(idD, 0, 0)
-        # espero el tiempo     
+        # espero el tiempo
         time.sleep(t)
         self.action()
-        
+
     def consultar_posicion(self, idMotor):
         '''
         Consulta la posicion del motor en un momento dado.
@@ -301,4 +314,4 @@ class Actuator:
         final = bit_Bajo + bit_Alto
         return final
 
-    
+
