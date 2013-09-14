@@ -163,11 +163,11 @@ class SensorCameraWhite(sensor.Sensor):
                     cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
                 cnt_mask_d, hierarchy = cv2.findContours(mask_d,
                     cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-                print len(cnt_mask_d)
-                print 'area minima ' + str(self.mask_area_min)
+                #print len(cnt_mask_d)
+                # print 'area minima ' + str(self.mask_area_min)
                 if (len(cnt_mask_i) > 0):
                     mask_area_i = cv2.contourArea(cnt_mask_i[0])
-                    print 'area i ' + str(mask_area_i)
+                    #print 'area i ' + str(mask_area_i)
                     if mask_area_i < self.mask_area_min:
                         # el area izq es menor a min , girar
                         self.data.write('Camara::barra_izq', 'GIRAR')
@@ -180,7 +180,7 @@ class SensorCameraWhite(sensor.Sensor):
                     #return
                 if (len(cnt_mask_d) > 0):
                     mask_area_d = cv2.contourArea(cnt_mask_d[0])
-                    print 'area d ' + str(mask_area_d)
+                    #print 'area d ' + str(mask_area_d)
 
                     if mask_area_d < self.mask_area_min:
                         # el area der es menor a min , girar
@@ -348,7 +348,7 @@ def main(argv):
     config.dual_display = True
     m = SensorCameraWhite(data, lock)
     m.dibujar_area = True
-    m.detectar_tacho = False
+    m.detectar_tacho = True
     # m.enable_resize()
     while True:
         m.action()

@@ -42,10 +42,10 @@ data = Data()
 
 comportamientos = [
     #CompAlfombra(data, motor),
-    #CompLona(data, motor),
+    CompLona(data, motor),
     #CompEvitar(data, motor),
-    #CompCargarLata(data, motor),
-    #CompLata(data, motor, lock_u4b),
+    CompCargarLata(data, motor),
+    CompLata(data, motor, lock_u4b),
     CompWander(data, motor)
     ]
 
