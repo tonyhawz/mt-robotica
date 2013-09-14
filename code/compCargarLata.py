@@ -18,7 +18,7 @@ class CompCargarLata(comp.Comp):
     def action(self):
         print 'CompCargarLata::action'
 
-        self.pinzas.
+        #self.pinzas.
         self.motores.girar_antihorario()
         self.motores.girar_horario()
         self.motores.girar_antihorario()
