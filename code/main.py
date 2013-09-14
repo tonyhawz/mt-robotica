@@ -11,7 +11,8 @@ from data import Data
 from sensor import Sensor
 from compEvitar import CompEvitar
 from compWander import CompWander
-from compAlfombra import CompAlfombra
+#from compAlfombra import CompAlfombra
+from compLona import CompLona
 from compLata import CompLata
 #from compBoton import CompBoton
 from compCargarLata import CompCargarLata
@@ -41,9 +42,10 @@ data = Data()
 
 comportamientos = [
     #CompAlfombra(data, motor),
+    CompLona(data, motor),
     #CompEvitar(data, motor),
     #CompCargarLata(data, motor),
-    CompLata(data, motor, lock_u4b),
+    #CompLata(data, motor, lock_u4b),
     CompWander(data, motor)
     ]
 

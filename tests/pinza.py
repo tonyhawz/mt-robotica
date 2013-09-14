@@ -37,35 +37,49 @@ class PinzaTest():
             self.b.setSpeed(motor_id, self.speed)
         self.b.setPosition(motor_id, pos)
 
+    def abierta(self):
+        self.setPosition(5, 0)
+        self.setPosition(7, 1023)
+        self.setPosition(8, 750)
+        self.setPosition(6, 280)
+
+    def aCargar(self):
+        self.setPosition(5, 200)
+        self.setPosition(7, 811)
+        self.setPosition(8, 511)
+        self.setPosition(6, 511)
+
 
 def main(argv):
     m = PinzaTest()
     m.initMotors()
     m.setSpeed(200)
 
-    print "moviendo pinza izq"
-    m.setPosition(8, 511)
-    time.sleep(T_SLEEP)
-    print "moviendo pinza der"
-    m.setPosition(6, 511)
-    time.sleep(T_SLEEP)
-    print "moviendo pinza izq"
-    m.setPosition(5, 511)
-    time.sleep(T_SLEEP)
-    print "moviendo pinza der"
-    m.setPosition(7, 511)
+    m.abierta()
 
-    time.sleep(2)
-    # posicionandose para navegar
-    time.sleep(T_SLEEP)
-    m.setPosition(5, 0)
-    time.sleep(T_SLEEP)
-    m.setPosition(7, 1023)
+    #print "moviendo pinza izq"
+    #m.setPosition(8, 511)
+    #time.sleep(T_SLEEP)
+    #print "moviendo pinza der"
+    #m.setPosition(6, 511)
+    #time.sleep(T_SLEEP)
+    #print "moviendo pinza izq"
+    #m.setPosition(5, 511)
+    #time.sleep(T_SLEEP)
+    #print "moviendo pinza der"
+    #m.setPosition(7, 511)
 
-    time.sleep(T_SLEEP)
-    m.setPosition(8, 311)
-    time.sleep(T_SLEEP)
-    m.setPosition(6, 700)
+    #time.sleep(2)
+    ## posicionandose para navegar
+    #time.sleep(T_SLEEP)
+    #m.setPosition(5, 0)
+    #time.sleep(T_SLEEP)
+    #m.setPosition(7, 1023)
+
+    #time.sleep(T_SLEEP)
+    #m.setPosition(8, 311)
+    #time.sleep(T_SLEEP)
+    #m.setPosition(6, 700)
 
 
 if __name__ == "__main__":

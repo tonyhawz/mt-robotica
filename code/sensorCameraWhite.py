@@ -26,6 +26,8 @@ class SensorCameraWhite(sensor.Sensor):
     area_imagen = None
     area_minima = None
 
+    mask_area_min = None
+
     def __init__(self, data, lock):
         sensor.Sensor.__init__(self, data)
         self.key = 'SensorVision::init'
@@ -49,6 +51,7 @@ class SensorCameraWhite(sensor.Sensor):
         self.area_imagen = h * w
         self.area_minima = self.area_imagen * config.camara_min_ratio_area
         print 'MINIMA AREA ' + str(self.area_minima)
+        self.mask_area_min = config.camara_mask_area_ratio * self.area_imagen
         self.display = config.display or config.dual_display
         # self.resize = False
         self.data.write('Camara::tacho_x', 0)
@@ -73,6 +76,9 @@ class SensorCameraWhite(sensor.Sensor):
         cv2.drawContours(img, [d], 0, (0, 255, 255), 1)
         cv2.drawContours(img, [i], 0, (0, 255, 255), 1)
         return (i, d)
+
+    #def chequear_barras_laterales(self, mask_white):
+#
 
     def run(self):
         self.stopped = False
@@ -143,13 +149,54 @@ class SensorCameraWhite(sensor.Sensor):
                 if self.display:
                     cv2.drawContours(img,
                         [big_cnt_white], 0, (255, 255, 0), 3)
+
+                '''
+                CHEQUEO LAS BARRAS LATERALES PARA VER SI TENGO QUE DOBLAR
+                '''
                 cv2.drawContours(mask_i,
                     [m_i], 0, (255, 0, 0), -1)
                 cv2.drawContours(mask_d,
                     [m_d], 0, (255, 0, 0), -1)
                 mask_i = cv2.bitwise_and(mask_i, mask_white)
                 mask_d = cv2.bitwise_and(mask_d, mask_white)
+                cnt_mask_i, hierarchy = cv2.findContours(mask_i,
+                    cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+                cnt_mask_d, hierarchy = cv2.findContours(mask_d,
+                    cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+                print len(cnt_mask_d)
+                print 'area minima ' + str(self.mask_area_min)
+                if (len(cnt_mask_i) > 0):
+                    mask_area_i = cv2.contourArea(cnt_mask_i[0])
+                    print 'area i ' + str(mask_area_i)
+                    if mask_area_i < self.mask_area_min:
+                        # el area izq es menor a min , girar
+                        self.data.write('Camara::barra_izq', 'GIRAR')
+                        #return
+                    else:
+                        self.data.write('Camara::barra_izq', 'OK')
+                else:
+                    # no hay mascara izq girar
+                    self.data.write('Camara::barra_izq', 'GIRAR')
+                    #return
+                if (len(cnt_mask_d) > 0):
+                    mask_area_d = cv2.contourArea(cnt_mask_d[0])
+                    print 'area d ' + str(mask_area_d)
+
+                    if mask_area_d < self.mask_area_min:
+                        # el area der es menor a min , girar
+                        self.data.write('Camara::barra_der', 'GIRAR')
+                        #return
+                    else:
+                        self.data.write('Camara::barra_der', 'OK')
+                else:
+                    # no hay mascara der girar
+                    self.data.write('Camara::barra_der', 'GIRAR')
+                    #return
+                '''
+                FIN CHEQUEO LAS BARRAS LATERALES PARA VER SI TENGO QUE DOBLAR
+                '''
             else:
+
                 pass
                 # no hay mascara blanca
                 #rect = cv2.minAreaRect(cnt)
@@ -265,8 +312,9 @@ class SensorCameraWhite(sensor.Sensor):
             if config.display and not config.dual_display:
                 cv2.imshow("ventana", img)
             if config.dual_display:
-                cv2.imshow("ventana", cu.join_images(mask, img))
-                cv2.imshow("ventana", cu.join_images(mask_i, img))
+                #cv2.imshow("ventana", cu.join_images(mask, img))
+                cv2.imshow("ventana", cu.join_images(
+                    cv2.bitwise_or(mask_i, mask_d), img))
             #tf = time.time()
             #delta_t = tf - ti
             #print 'SensorCameraWhite::action ' + str(delta_t)

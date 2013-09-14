@@ -14,6 +14,8 @@ camara_min_ratio_area = 0.015
 
 camara_ratio_mascaras_laterales = 0.050
 
+camara_mask_area_ratio = 0.04
+
 min_area    = 200
 area_lata   = 1000000
 min_x       = (ancho / 2.0) - (ancho / 10.0)
