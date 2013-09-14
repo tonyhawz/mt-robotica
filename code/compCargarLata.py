@@ -17,15 +17,12 @@ class CompCargarLata(comp.Comp):
 
     def action(self):
         print 'CompCargarLata::action'
+        self.data.write('CargandoLata::', '1')
+        self.pinzas.aCargar()
+        time.sleep(3)
+        self.pinzas.abierta()
+        self.data.write('CargandoLata::','0')
 
-        self.pinzas.
-        self.motores.girar_antihorario()
-        self.motores.girar_horario()
-        self.motores.girar_antihorario()
-        self.motores.girar_horario()
-        self.motores.girar_antihorario()
-        self.motores.girar_horario()
-        self.motores.detener()
 
         latas = self.data.read('lata::cant_latas') + 1
         self.data.write('lata::cant_latas', latas)
