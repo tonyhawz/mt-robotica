@@ -43,7 +43,7 @@ MAX_TORQUE_CMD = 0x0E
 TORQUE_LIMIT_CMD = 0x22
 TORQUE_ENABLE_CMD = 0x18
 PRESENT_POSITION = 0x24
-
+ID_POSITION = 0x03
 CCW_CMD = 0x08
 
 class Actuator:
@@ -314,4 +314,12 @@ class Actuator:
         final = bit_Bajo + bit_Alto
         return final
 
-
+    def consultar_id(self):
+        self.communication.flushInput()  # vacia el buffer de datos de entrada
+        msg = self.make_msg(0XFE, READ_DATA, [ID_POSITION, 0x01])  # parametros =[dir de memoria inicial, bytes a leer]
+        aux = self.communication.read_msg(2)  # cuantos parametros espero, devuelve array
+        bit_Alto=ord(aux[0])
+        bit_Bajo=ord(aux[1])
+        bit_Alto= bit_Alto << 8
+        final = bit_Bajo + bit_Alto
+        return final

@@ -12,9 +12,9 @@ class SensorCamaraPos(sensor.Sensor):
     i = None
     key = None
 
-    def __init__(self, data, usb4b, lock):
+    def __init__(self, data, motor, lock):
         sensor.Sensor.__init__(self, data)
-        self.u = usb4b
+        self.u = motor
         self.key = 'SensorCamPos::'
         self.nombre = self.key
         self.lock = lock
@@ -23,9 +23,8 @@ class SensorCamaraPos(sensor.Sensor):
 
     def action(self):
         self.lock.acquire()
-        (x, y) = self.u.getPosicionCamara()
-         #             x =#
+        (x, y) = self.u.get_posicion_camara()
         self.lock.release()
-        print "SensorCamPos::x" + x + " y " + y
+        #print "SensorCamPos::x" + str(x) + " y " + str(y)
         self.data.write(self.key + 'pos_x', x)
         self.data.write(self.key + 'pos_y', y)

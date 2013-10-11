@@ -8,14 +8,17 @@ import time
 from Communication import CommSerial
 import Actuator
 
-comm_tty = CommSerial() 
+comm_tty = CommSerial()
 comm_tty.connect()
 actuator = Actuator.Actuator(comm_tty)
-motor_id = 3
+motor_id = 1
 
-actuator.reset(motor_id)
+
+actuator.reset(0xfe)
 time.sleep(2)
 actuator.setear_id(motor_id)
+
+
 
 for i in range(1, 50):
     if (i%2 == 0):

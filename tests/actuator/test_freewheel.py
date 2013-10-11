@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
-# 
+#
 # basic ax12 actuator control
 # Andrés Aguirre Dorelo
 # MINA/INCO/UDELAR
@@ -29,11 +29,11 @@ comm_tty.connect()
 #actuator = Actuator.Actuator(comm)
 actuator_tty = Actuator.Actuator(comm_tty)
 #actuator_tty.setear_id(6)
-idMotor = 8
+idMotor = 2
 
 #actuator_tty.move_actuator(6, 0 , 32)
-#actuator_tty.set_speed_actuator(motor_id, 256, 0)
+actuator_tty.set_speed_actuator(idMotor, 256, 0)
 
 actuator_tty.setTorque(idMotor, True)
 
-#actuator_tty.move_actuator(idMotor, 0, 120)
+actuator_tty.move_actuator(idMotor, 0, 120)

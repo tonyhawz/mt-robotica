@@ -9,12 +9,13 @@ class Arbitro(threading.Thread):
     current_comp = None
     comps = None
     data = None
-    stopped = False
+    stopped = True
 
     def __init__(self, comps, data):
         threading.Thread.__init__(self)
         self.comps = comps
         self.current_comp = comps[len(comps) - 1]
+        #print len(comps)
         i = 0
         for c in self.comps:
             i = i + 1
@@ -25,9 +26,10 @@ class Arbitro(threading.Thread):
         time.sleep(3)
         self.data = data
         self.refresh_rate = config.refresh_rate
-        self.current_comp.resume()
+        #self.current_comp.resume()
 
     def arbitrar(self):
+        self.current_comp.resume()
         self.stopped = False
         while not self.stopped:
             # print 'Arbitro::arbitrando'
@@ -50,17 +52,30 @@ class Arbitro(threading.Thread):
             # print 'Arbitro::arbitrando ' + str(delta_t)
             time.sleep(self.refresh_rate)
 
+        print "FIN ARBITRAR"
+
     def run(self):
         self.arbitrar()
+
+    #def resume(self):
+        #for c in self.comps:
+            #c.reset()
+            #c.resume()
+
 
     def stop(self):
         self.stopped = True
         for c in self.comps:
             c.stop()
+            #c.reset()
 
     def get_comps(self):
         return self.comps
 
     def getNombre(self):
         return 'Arbitro'
+
+    def pause(self):
+        for c in self.comps:
+            c.pause()
 

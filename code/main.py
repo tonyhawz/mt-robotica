@@ -12,9 +12,9 @@ from sensor import Sensor
 from compEvitar import CompEvitar
 from compWander import CompWander
 #from compAlfombra import CompAlfombra
-from compLona import CompLona
+#from compLona import CompLona
 from compLata import CompLata
-#from compBoton import CompBoton
+from compBoton import CompBoton
 from compCargarLata import CompCargarLata
 #from pybot import usb4butia
 #from sensorDistancia import SensorDistancia
@@ -23,7 +23,7 @@ from sensorCameraWhite import SensorCameraWhite
 from motores import Motores
 from myUsb4Butia import MyUsb4Butia
 from motoresPinza import MotoresPinza
-
+from sensorCamaraPos import SensorCamaraPos
 
 global hilos
 global lock_u4b
@@ -38,19 +38,24 @@ print ('Press Ctrl+C')
 
 data = Data()
 
-#  CompBoton(data, motor),
 
+#comboton = CompBoton(data, motor)
+#los compportamientos van en orden descendente deprioridad
 comportamientos = [
+    #comboton,
     #CompAlfombra(data, motor),
-    CompLona(data, motor),
+    #CompLona(data, motor),
     #CompEvitar(data, motor),
-    CompCargarLata(data, motorPinza,motor),
+    #CompCargarLata(data, motorPinza,motor),
     CompLata(data, motor, lock_u4b),
     CompWander(data, motor)
     ]
 
 a = Arbitro(comportamientos, data)
 a.start()
+#comboton.setArbitro(a)
+#comboton.start()
+
 
 #sensores = [Sensor(data),
 #    SeqnsorDistancia(data, u4b, 1, lock_u4b),
@@ -64,8 +69,10 @@ a.start()
 #    SensorCameraWhite(data, lock_u4b)]
 
 sensores = [
+    #SensorDistancia(data, u4b, 1, lock_u4b),
+    #SensorBoton(data, u4b, lock_u4b)
     SensorCameraWhite(data, lock_u4b),
-    #SensorCamaraPos(data,u4b, lock_u4b)
+    #SensorCamaraPos(data,motor, lock_u4b)
     #Sensor(data),
     #SensorGrises(data, u4b, config.grisDer, lock_u4b),
     #SensorGrises(data, u4b, config.grisIzq, lock_u4b)
@@ -73,6 +80,7 @@ sensores = [
 
 hilos.append(a)
 hilos.append(motor)
+#hilos.append(comboton)
 
 for s in sensores:
     s.start()
@@ -82,9 +90,10 @@ for s in sensores:
 def signal_handler(signal, frame):
     print ('You pressed Ctrl+C!')
     for h in hilos:
-        h.stop()
         msg = 'PARANDO ' + h.getNombre()
         print (msg)
+        h.stop()
+
     #motor.detener()
     sys.exit(0)
 

@@ -278,7 +278,7 @@ class SensorCameraWhite(sensor.Sensor):
                 cv2.drawContours(img, [c], 0, (0, 255, 0), 3)
 
             if c is not None:
-                #print ('ENCONTRE'+ str(x_old))
+                #print ('ENCONTRE'+ str(x_old)+ "<= X  Y=>"+str(y_old))
                 #self.data.write('Camara::area', a)
                 self.data.write('Camara::lata_x', int(x_old))
                 self.data.write('Camara::lata_y', int(y_old))

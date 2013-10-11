@@ -23,6 +23,41 @@ class CompLata(comp.Comp):
         return self.data.read('Camara::encontro') == 'TRUE'
 
     def action(self):
+       #if (self.data.read('SensorCamPos::pos_x')== config.cero_posx_camara and self.data.read('SensorCamPos::pos_y')== 0):
+            if ((self.data.read('Camara::lata_x') > config.min_x) and (self.data.read('Camara::lata_x') < config.max_x)):
+                self.motores.avanzar_u(config.VEL)
+                print ("AREA LATA " + str(self.data.read('Camara::area')))
+                if (self.data.read('Camara::area') > config.area_lata):
+                    self.data.write('lata::disponible', 1)
+                    self.motores.detener()
+                    print "EEEEEENNNNNNNNNNNCCCCCCCCCCCCCOOOOONNNNNNNNNNNNTREEEEEEEEEEEEEEEEEE"
+            elif (self.data.read('Camara::lata_x') < config.min_x):
+                print "izquierda"
+                self.motores.girar_antihorario()
+            elif (self.data.read('Camara::lata_x') > config.max_x):
+                print "derecha"
+                self.motores.girar_horario()
+        #else:
+            ##Si la camara no esta centrada hay que ajustar camara y robot
+            #if (self.data.read('SensorCamPos::pos_x') < config.cero_posx_camara and self.data.read('Camara::lata_x') < config.min_x):
+                ##camara girada a la derecha y lata a la izquierda de la camara solo giro la camara
+                #self.motores.girarCamaraIzquierda()
+                #self.motores.avanzar_u(config.VEL)
+            #elif (self.data.read('SensorCamPos::pos_x') < config.cero_posx_camara and  self.data.read('Camara::lata_x') > config.max_x):
+                #print "giro derecha"
+                #self.motores.girar_horario()
+            #elif (self.data.read('SensorCamPos::pos_x') > config.cero_posx_camara and self.data.read('Camara::lata_x') < config.min_x):
+                ##camara girada a la izquierda  y lata a la izquierda de la camara solo giro la camara
+                #self.motores.girarCamaraIzquierda()
+                #self.motores.girar_antihorario()
+            #elif (self.data.read('SensorCamPos::pos_x')> config.cero_posx_camara and  self.data.read('Camara::lata_x') > config.max_x):
+                #print "giro derecha"
+                #self.motores.girarCamaraDerecha()
+                #self.motores.avanzar_u(config.VEL)
+
+
+    '''
+    def action(self):
         print 'CompLata::action'
         #Si la camara esta centrada es como antes
         #if (self.data.read('SensorCamPos::pos_x')== config.cero_posx_camara and self.data.read('SensorCamPos::pos_y')== 0):
@@ -61,11 +96,12 @@ class CompLata(comp.Comp):
             print "izquierda"
             self.motores.girar_antihorario()
             #@TODO VER QUE PASA CON LAS Y EN LA CAMARA
+    '''
 
     def reset(self):
         self.data.write('Camara::area', 0)
         self.data.write('Camara::lata_x', 0)
-	self.data.write('Camara::encontro', 'FALSE')
+        self.data.write('Camara::encontro', 'FALSE')
         self.data.write('lata::disponible', 0)
 
     def post_stop(self):

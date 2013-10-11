@@ -19,15 +19,16 @@ camara_ratio_mascaras_laterales = 0.050
 camara_mask_area_ratio = 0.02
 
 min_area    = 200
-area_lata   = 1000000
+#area_lata   = 1000000
+area_lata   = 200
 min_x       = (ancho / 2.0) - (ancho / 10.0)
 max_x       = (ancho / 2.0) + (ancho / 10.0)
 min_y       = (alto*.75)
 
 
-min_x = 0
-max_x = ancho
-min_y = alto * .50
+#min_x = 0
+#max_x = ancho
+#min_y = alto * .50
 
 
 #min_x = 0
@@ -42,10 +43,11 @@ max_range   = (360, 256, 56)
 #max_range   = (360, 256, 50)
 
 # variables para el control de los motores
-VEL         = 900
-vgiro       = 900
-delante     = 1
-atras       = 0
+VEL         = 400
+vgiro       = 800
+vgiromenor  = 200
+delante     = 0
+atras       = 1
 
 
 min_hsv_negro = np.array((0, 0, 0), np.int32)
@@ -89,7 +91,7 @@ id_motor_camara_X = 12
 id_motor_camara_Y = 11
 
 motores_timeout_adelante = 10
-motores_timeout_girar = 3
+motores_timeout_girar = 2
 
 motor_pinza_speed = 200
 motor_pinza_d_1 = 6
@@ -99,9 +101,16 @@ motor_pinza_i_2 = 7
 
 motor_volcadora = 13
 
-
+vel_paneo = 100
 motor_camara_x_pos = 511
 motor_camara_y_pos = 0
 
+max_camara_x=611
+max_camara_y=1023
+min_camara_x=411
+min_camara_y=0
+
+alfa_giro = 20
+
 cero_posx_camara = 511
-cero_posy_camara = 0
+cero_posy_camara = 100

@@ -23,6 +23,7 @@ class CompWander(comp.Comp):
         self.VEL = config.VEL
         self.data = data
 
+
     def getNombre(self):
         return 'CompWander'
 
@@ -59,6 +60,11 @@ class CompWander(comp.Comp):
 
     def reset(self):
         pass
+
+    #def pause(self):
+        #self.motores.detener()
+        #with self.state:
+            #self.paused = True
 
     def post_stop(self):
         print('CompWander::post_stop')

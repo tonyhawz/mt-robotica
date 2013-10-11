@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-#import time
+import time
 import config
 
 #DELANTE     = 1
@@ -43,19 +43,44 @@ class Motores():
 
     def girar_horario(self):
         self.lock.acquire()
-        self.butia.set2MotorSpeed(config.delante,
+        #self.butia.set2MotorSpeed(config.delante,
+            #config.vgiromenor,
+            #config.atras,
+            #config.vgiro)
+        self.butia.set2MotorSpeed(config.atras,
             config.vgiro,
             config.atras,
-            config.vgiro)
+            config.vgiromenor)
+        time.sleep(1)
+        self.butia.set2MotorSpeed(config.delante,
+            config.VEL,
+            config.delante,
+            config.VEL)
+        time.sleep(1)
+        self.butia.set2MotorSpeed(0,0,0,0)
         self.lock.release()
 
     def girar_antihorario(self):
         self.lock.acquire()
         self.butia.set2MotorSpeed(config.atras,
-            config.vgiro,
-            config.delante,
+            config.vgiromenor,
+            config.atras,
             config.vgiro)
+        time.sleep(1)
+        self.butia.set2MotorSpeed(config.delante,
+            config.VEL,
+            config.delante,
+            config.VEL)
+        time.sleep(1)
+        self.butia.set2MotorSpeed(0,0,0,0)
         self.lock.release()
+
+        #self.lock.acquire()
+        #self.butia.set2MotorSpeed(config.atras,
+            #config.vgiro,
+            #config.atras,
+            #config.vgiromenor)
+        #self.lock.release()
 
     def stop(self):
         self.lock.acquire()
@@ -95,27 +120,36 @@ class Motores():
 
     #Obtiene la pocion en (x,y) de la camara
     def get_posicion_camara(self):
-        x = self.butia.getPosicion(config.id_motor_camara_X)
-        y = self.butia.getPosicion(config.id_motor_camara_Y)
+        x = self.butia.getPosition(config.id_motor_camara_X)
+        y = self.butia.getPosition(config.id_motor_camara_Y)
         return (x, y)
 
     def hacerPaneoCamara(self):
         #deberia de ir pasando del centro a la izquierda y luego de la izquierda a la derecha con velocidad constante
-        self.butia.setSpeed(config.id_motor_camara_x, config.vel_paneo)
-        if self.butia.getPosition(config.id_motor_camara_x) == config.cero_posx_camara:
+        self.butia.setSpeed(config.id_motor_camara_X, config.vel_paneo)
+        if self.butia.getPosition(config.id_motor_camara_X) == config.cero_posx_camara:
             #camara centrada => la giro a la izquierda
-            self.butia.setPosition(config.id_motor_camara_x,config.max_camara_x)
-        elif(self.butia.getPosition(config.id_motor_camara_x)>config.cero_posx_camara):
+            self.butia.setPosition(config.id_motor_camara_X,config.max_camara_x)
+        elif(self.butia.getPosition(config.id_motor_camara_X)>config.cero_posx_camara):
             #camara iquierda => la giro a la derecha
-            self.butia.setPosition(config.id_motor_camara_x,config.max_camara_x)
-        elif(self.butia.getPosition(config.id_motor_camara_x)<config.cero_posx_camara):
+            self.butia.setPosition(config.id_motor_camara_X,config.min_camara_x)
+        elif(self.butia.getPosition(config.id_motor_camara_X)<config.cero_posx_camara):
             #camara  derecha => la giro a la  iquierda
-            self.butia.setPosition(config.id_motor_camara_x,config.min_camara_x)
+            self.butia.setPosition(config.id_motor_camara_X,config.max_camara_x)
+
+    def girarCamaraIzquierda(self):
+        self.butia.setSpeed(config.id_motor_camara_X, config.vel_paneo)
+        self.butia.setPosition(config.id_motor_camara_X,self.butia.getPosition(config.id_motor_camara_X)+config.alfa_giro)
+
+    def girarCamaraDerecha(self):
+        self.butia.setSpeed(config.id_motor_camara_X, config.vel_paneo)
+        self.butia.setPosition(config.id_motor_camara_X,self.butia.getPosition(config.id_motor_camara_X)-config.alfa_giro)
+
 
     def centrarCamara(self):
-        self.butia.setPosition(config.id_motor_camara_x,
+        self.butia.setPosition(config.id_motor_camara_X,
             config.cero_posx_camara)
-        self.butia.setPosition(config.id_motor_camara_y,
+        self.butia.setPosition(config.id_motor_camara_Y,
             config.cero_posy_camara)
 
     def posicion_levantar(self):
