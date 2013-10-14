@@ -37,7 +37,7 @@ class CompWander(comp.Comp):
         return True
 
     def action(self):
-        #self.printStatus()
+        self.printStatus()
         delta_t = self.getTime() - self.t_antes
         self.timeout = self.timeout - delta_t
         self.t_antes = self.getTime()

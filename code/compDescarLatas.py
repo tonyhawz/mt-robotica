@@ -1,5 +1,6 @@
 import comp
 import time
+import config
 
 
 class CompDescargarLatas(comp.Comp):
@@ -13,8 +14,6 @@ class CompDescargarLatas(comp.Comp):
 
     def action(self):
         print 'CompDescargarLatas::action'
-        #DEBERIA DE HACER UN GIRO DE 180 y tirar las latas
-        # Se podria girar 180 hasta que un sensor de distacias
-        # atas diga q hay algo atras
-        # ver de poner sensores adelante del tacho para el tema de
-        # las distancias
+        self.motores.descargarTolva()
+        self.motores.girar_antihorario()
+        time.sleep(config.tiempo_salida_tacho)

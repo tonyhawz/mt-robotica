@@ -43,22 +43,25 @@ class Motores():
 
     def girar_horario(self):
         self.lock.acquire()
-        #self.butia.set2MotorSpeed(config.delante,
-            #config.vgiromenor,
-            #config.atras,
-            #config.vgiro)
+
         self.butia.set2MotorSpeed(config.atras,
             config.vgiro,
             config.atras,
             config.vgiromenor)
-        time.sleep(1)
-        self.butia.set2MotorSpeed(config.delante,
-            config.VEL,
-            config.delante,
-            config.VEL)
-        time.sleep(1)
-        self.butia.set2MotorSpeed(0,0,0,0)
+        #time.sleep(0.1)
+        #self.butia.set2MotorSpeed(config.delante,
+            #config.VEL,
+            #config.delante,
+            #config.VEL)
+        #time.sleep(0.1)
+        #self.butia.set2MotorSpeed(0,0,0,0)
         self.lock.release()
+
+        #self.butia.set2MotorSpeed(config.delante,
+            #config.vgiromenor,
+            #config.atras,
+            #config.vgiro)
+
 
     def girar_antihorario(self):
         self.lock.acquire()
@@ -66,13 +69,13 @@ class Motores():
             config.vgiromenor,
             config.atras,
             config.vgiro)
-        time.sleep(1)
-        self.butia.set2MotorSpeed(config.delante,
-            config.VEL,
-            config.delante,
-            config.VEL)
-        time.sleep(1)
-        self.butia.set2MotorSpeed(0,0,0,0)
+        #time.sleep(0.1)
+        #self.butia.set2MotorSpeed(config.delante,
+            #config.VEL,
+            #config.delante,
+            #config.VEL)
+        #time.sleep(0.1)
+        #self.butia.set2MotorSpeed(0,0,0,0)
         self.lock.release()
 
         #self.lock.acquire()
@@ -161,9 +164,19 @@ class Motores():
 
     def initMotorPinza(self, motor_id, speed):
         self.butia.jointMode(motor_id, 0, 1023)
-        self.bitia.setSpeed(motor_id, speed)
+        self.butia.setSpeed(motor_id, speed)
 
     def setPositionPinza(self, motor_id, pos, speed=None):
         self.initMotorPinza(motor_id, speed)
         self.butia.setPosition(motor_id, pos)
+
+    def setPositionTolva(self, pos, speed=None):
+        self.initMotorPinza(config.id_motor_tolva, speed)
+        self.butia.setPosition(config.id_motor_tolva, pos)
+
+    def descargarTolva(self):
+        self.setPositionTolva(config.tolva_pos_final,config.tolva_vel)
+        time.sleep(2)
+        self.setPositionTolva(config.tolva_pos_init,config.tolva_vel)
+
 

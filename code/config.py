@@ -20,7 +20,7 @@ camara_mask_area_ratio = 0.02
 
 min_area    = 200
 #area_lata   = 1000000
-area_lata   = 200
+area_lata   = 100
 min_x       = (ancho / 2.0) - (ancho / 10.0)
 max_x       = (ancho / 2.0) + (ancho / 10.0)
 min_y       = (alto*.75)
@@ -53,10 +53,15 @@ atras       = 1
 min_hsv_negro = np.array((0, 0, 0), np.int32)
 max_hsv_negro = np.array((256, 256, 50), np.int32)
 
-min_hsv_arena = np.array((0, 100, 100), np.int32)
-max_hsv_arena = np.array((100, 224, 256), np.int32)
+#min_hsv_arena = np.array((0, 14, 80), np.int32) #arena fing
+#max_hsv_arena = np.array((100, 224, 256), np.int32)#arena fing
 
-min_hsv_blanc = np.array((0, 50, 80), np.int32)
+#min_hsv_arena = np.array((0, 42, 100), np.int32)#alfombra lab
+#max_hsv_arena = np.array((100, 224, 256), np.int32)#alfombra lab
+
+
+#color de la arena !!!
+min_hsv_blanc = np.array((0, 14, 80), np.int32)
 max_hsv_blanc = np.array((100, 224, 256), np.int32)
 
 #min_hsv_blanc = np.array((0,0,91),np.int32)
@@ -89,6 +94,13 @@ idBoton     = 6
 # Variables para motores
 id_motor_camara_X = 12
 id_motor_camara_Y = 11
+
+id_motor_tolva = 99
+tolva_pos_init = 545
+tolva_pos_final = 800
+tolva_vel = 200
+tiempo_salida_tacho = 3
+
 
 motores_timeout_adelante = 10
 motores_timeout_girar = 2

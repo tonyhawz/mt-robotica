@@ -12,7 +12,7 @@ from sensor import Sensor
 from compEvitar import CompEvitar
 from compWander import CompWander
 #from compAlfombra import CompAlfombra
-#from compLona import CompLona
+from compLona import CompLona
 from compLata import CompLata
 from compBoton import CompBoton
 from compCargarLata import CompCargarLata
@@ -23,7 +23,7 @@ from sensorCameraWhite import SensorCameraWhite
 from motores import Motores
 from myUsb4Butia import MyUsb4Butia
 from motoresPinza import MotoresPinza
-from sensorCamaraPos import SensorCamaraPos
+#from sensorCamaraPos import SensorCamaraPos
 
 global hilos
 global lock_u4b
@@ -44,10 +44,10 @@ data = Data()
 comportamientos = [
     #comboton,
     #CompAlfombra(data, motor),
-    #CompLona(data, motor),
+    CompLona(data, motor),
     #CompEvitar(data, motor),
     #CompCargarLata(data, motorPinza,motor),
-    CompLata(data, motor, lock_u4b),
+    #CompLata(data, motor, lock_u4b),
     CompWander(data, motor)
     ]
 

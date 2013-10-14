@@ -29,7 +29,7 @@ class Arbitro(threading.Thread):
         #self.current_comp.resume()
 
     def arbitrar(self):
-        self.current_comp.resume()
+        #self.current_comp.resume()
         self.stopped = False
         while not self.stopped:
             # print 'Arbitro::arbitrando'

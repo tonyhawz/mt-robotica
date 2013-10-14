@@ -72,7 +72,11 @@ class CompLona(comp.Comp):
             self.estado = (self.estado + 1) % 2
 
         if (self.estado == config.uno):
-            self.motores.girar_marchatras(self.horario)
+            #self.motores.girar_marchatras(self.horario)
+            if self.horario:
+                self.motores.girar_horario()
+            else:
+                self.motores.girar_antihorario()
 
     def reset(self):
         self.timeout = self.timeout_ini
