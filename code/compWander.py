@@ -59,7 +59,8 @@ class CompWander(comp.Comp):
         #self.motores.hacerPaneoCamara()
 
     def reset(self):
-        pass
+        self.estado = self.ADELANTE
+        self.timeout = config.motores_timeout_adelante
 
     #def pause(self):
         #self.motores.detener()

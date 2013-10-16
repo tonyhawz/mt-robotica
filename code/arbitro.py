@@ -10,8 +10,8 @@ class Arbitro(threading.Thread):
     comps = None
     data = None
     stopped = True
-
-    def __init__(self, comps, data):
+    u4b = None
+    def __init__(self, comps, data,u4b):
         threading.Thread.__init__(self)
         self.comps = comps
         self.current_comp = comps[len(comps) - 1]
@@ -26,13 +26,18 @@ class Arbitro(threading.Thread):
         time.sleep(3)
         self.data = data
         self.refresh_rate = config.refresh_rate
-        #self.current_comp.resume()
+        self.u4b =u4b
+        self.current_comp.resume()
 
     def arbitrar(self):
+        print "Comienza arbitro"
+        #while self.u4b.getButton(config.idBoton)== -1:
+            #print "arbitro esperando" + str(self.u4b.getButton(config.idBoton))
+        #print "salie"
         #self.current_comp.resume()
         self.stopped = False
         while not self.stopped:
-            # print 'Arbitro::arbitrando'
+            print 'Arbitro::arbitrando'
             # ti = time.time()
             for c in self.comps:
                 if c.takeControl():
@@ -45,6 +50,8 @@ class Arbitro(threading.Thread):
                             self.current_comp.pause()
                         self.current_comp = c
                         self.current_comp.printTiempo(taux)
+                        # para evitar estados secundarios medio colgados
+                        self.current_comp.reset()
                         self.current_comp.resume()
                     break
             # tf = time.time()

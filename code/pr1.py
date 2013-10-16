@@ -2,12 +2,39 @@ from pybot import usb4butia
 import motores
 import time
 import threading
-
+from motoresPinza import MotoresPinza
 lbutia = usb4butia.USB4Butia()
 l = threading.Lock()
 mov = motores.Motores(lbutia,l)
 
+motorPinza = MotoresPinza(lbutia, l)
+
+#motorPinza.abierta()
+#time.sleep(2)
+
+#motorPinza.aCargar()
+#time.sleep(3)
+#motorPinza.cargar()
+#time.sleep(2)
+#motorPinza.abierta()
+#time.sleep(3)
+
+motorPinza.setPosition(5, 200)
+motorPinza.setPosition(7, 811)
+time.sleep(2)
+
 mov.descargarTolva()
+time.sleep(2)
+#motorPinza.abierta()
+motorPinza.setPosition(5, 0)
+motorPinza.setPosition(7, 1023)
+#time.sleep(2)
+
+#mov.posicion_levantar()
+
+#while True:
+    #print lbutia.getDistance(1)
+
 
 #mov.avanzar_u(400)
 #mov.girar_antihorario()

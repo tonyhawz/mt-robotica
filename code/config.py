@@ -2,12 +2,18 @@ import numpy as np
 
 refresh_rate = .01
 
+#refresh_rate = 1
+
 # variables de configuracion para la camara
 camara      = 1
 #camara = '../videos/video-1378342226.29.avi'
 #camara = '../videos/video-1379160469.34.avi'
-
 #camara = '../videos/video-1379159783.25.avi'
+
+display = False
+dual_display = False
+
+
 ancho       = 160
 alto        = 120
 
@@ -43,9 +49,15 @@ max_range   = (360, 256, 56)
 #max_range   = (360, 256, 50)
 
 # variables para el control de los motores
+#en arena
 VEL         = 400
 vgiro       = 800
 vgiromenor  = 200
+# en piso
+#VEL         = 200
+#vgiro       = 500
+#vgiromenor  = 200
+
 delante     = 0
 atras       = 1
 
@@ -73,23 +85,23 @@ max_hsv_tacho = np.array((15,256,256),np.int32)
 min_hsv_azul = np.array((100,0,0),np.int32)
 max_hsv_azul = np.array((150,256,256),np.int32)
 
-display = True
-dual_display = False
+
 
 # Variables para sensor de distancia - infrarojos
-idDist      = 2
-dist_min    = 22000
+idDistIzq      = 3
+idDistDer      = 1
+max_len     = 1 # max buffer de mediciones
+dist_min    = 5000
 cero        = 0
 uno         = 1
 
 # Variables para sensores de grises
 timeout_ini = 4
-max_len     = 1
 grisDer     = 1
 grisIzq     = 3
 alf_detect  = 20000
 
-idBoton     = 6
+idBoton     = 2
 
 # Variables para motores
 id_motor_camara_X = 12
@@ -111,7 +123,11 @@ motor_pinza_d_2 = 5
 motor_pinza_i_1 = 8
 motor_pinza_i_2 = 7
 
+#volvado
 motor_volcadora = 13
+tiempo_pinza_descarga = 2
+tiempo_descarga = 2
+
 
 vel_paneo = 100
 motor_camara_x_pos = 511

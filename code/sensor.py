@@ -18,11 +18,11 @@ class Sensor(threading.Thread):
     def run(self) :
         self.stopped = False
         while not self.stopped :
-#            print 'Sensor::sensando'
+            #print 'Sensor::sensando'
             t0 = time.time()
             self.action()
             tf = time.time()
-            #print self.getNombre() + " - " + str(tf-t0)
+            print self.getNombre() + " - " + str(tf-t0)
             time.sleep(self.refresh_rate)
 #        print 'Sesnor fuera while'
 

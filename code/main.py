@@ -8,16 +8,16 @@ import threading
 from arbitro import Arbitro
 #from arbitro_st import ArbitroST
 from data import Data
-from sensor import Sensor
+#from sensor import Sensor
 from compEvitar import CompEvitar
 from compWander import CompWander
 #from compAlfombra import CompAlfombra
 from compLona import CompLona
 from compLata import CompLata
-from compBoton import CompBoton
+#from compBoton import CompBoton
 from compCargarLata import CompCargarLata
 #from pybot import usb4butia
-#from sensorDistancia import SensorDistancia
+from sensorDistancia import SensorDistancia
 #from sensorBoton import SensorBoton
 from sensorCameraWhite import SensorCameraWhite
 from motores import Motores
@@ -44,14 +44,14 @@ data = Data()
 comportamientos = [
     #comboton,
     #CompAlfombra(data, motor),
-    CompLona(data, motor),
-    #CompEvitar(data, motor),
-    #CompCargarLata(data, motorPinza,motor),
-    #CompLata(data, motor, lock_u4b),
+    #CompLona(data, motor),
+    CompEvitar(data, motor),
+    CompCargarLata(data, motorPinza,motor),
+    CompLata(data, motor, lock_u4b),
     CompWander(data, motor)
     ]
 
-a = Arbitro(comportamientos, data)
+a = Arbitro(comportamientos, data,u4b)
 a.start()
 #comboton.setArbitro(a)
 #comboton.start()
@@ -69,7 +69,7 @@ a.start()
 #    SensorCameraWhite(data, lock_u4b)]
 
 sensores = [
-    #SensorDistancia(data, u4b, 1, lock_u4b),
+    SensorDistancia(data, u4b, 1, lock_u4b),
     #SensorBoton(data, u4b, lock_u4b)
     SensorCameraWhite(data, lock_u4b),
     #SensorCamaraPos(data,motor, lock_u4b)
@@ -93,7 +93,6 @@ def signal_handler(signal, frame):
         msg = 'PARANDO ' + h.getNombre()
         print (msg)
         h.stop()
-
     #motor.detener()
     sys.exit(0)
 

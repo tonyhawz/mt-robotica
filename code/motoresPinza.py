@@ -68,6 +68,13 @@ class MotoresPinza():
         self.setPosition(8, 123, 400)
         self.setPosition(6, 900, 400)
 
+    def abrirDescargar(self):
+        self.setPosition(5, 200)
+        self.setPosition(7, 811)
+
+    def cerrarDescargar(self):
+        self.setPosition(5, 0)
+        self.setPosition(7, 1023)
 
 def main(argv):
     m = MotoresPinza(MyUsb4Butia())

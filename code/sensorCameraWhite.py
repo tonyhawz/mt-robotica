@@ -83,9 +83,16 @@ class SensorCameraWhite(sensor.Sensor):
     def run(self):
         self.stopped = False
         while not self.stopped:
+            #self.action()
+            t0 = time.time()
             self.action()
-            cv2.waitKey(50) % 0x100
-            #time.sleep(self.refresh_rate)
+            tf = time.time()
+            #print self.getNombre() + " - " + str(tf-t0)
+            #cv2.waitKey(50) % 0x100
+            if self.display:
+                cv2.waitKey((int)(1)) % 0x100
+            else:
+                time.sleep(self.refresh_rate)
 
     def detectar_contornos(self, img_hsv, _min, _max, _mask=None):
         img_bw = cv2.inRange(img_hsv, _min, _max)

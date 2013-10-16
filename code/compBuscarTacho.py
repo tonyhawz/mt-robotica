@@ -1,6 +1,6 @@
 import comp
-import time
-
+#import time
+import config
 class CompBuscarTacho(comp.Comp):
 
 
@@ -11,7 +11,7 @@ class CompBuscarTacho(comp.Comp):
     #Tomo el control solo si tengo el tacho en frente y tengo latas
     #@TODO comportamiento con respecto a latas y tacho
     def takeControl(self):
-         if (self.data.read('Camara::tacho')=='TRUE'):
+        if (self.data.read('Camara::tacho')=='TRUE'):
              return self.data.read('lata::cant_latas')>0
         else:
             return False
@@ -34,7 +34,7 @@ class CompBuscarTacho(comp.Comp):
             self.motores.girar_horario()
 
 
-     def reset(self):
-         pass
+    def reset(self):
+        pass
 
 
