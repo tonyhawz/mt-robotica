@@ -40,7 +40,8 @@ class CompEvitar(comp.Comp):
                 dist = 0
             cargando = self.data.read('CargandoLata::')
             self.t_antes = self.getTime()
-            if dist > config.dist_min and cargando is not '1':
+            #if dist > config.dist_min and cargando is not '1':
+            if dist > config.dist_min and cargando is not 'TRUE':
                 self.horario = False
                 self.estado = config.uno
                 self.timeout = self.timeout_ini
@@ -53,7 +54,7 @@ class CompEvitar(comp.Comp):
                     dist = 0
                 cargando = self.data.read('CargandoLata::')
                 self.t_antes = self.getTime()
-                if dist > config.dist_min and cargando is not '1':
+                if dist > config.dist_min and cargando is not 'TRUE':
                     self.horario = False
                     self.estado = config.uno
                     self.timeout = self.timeout_ini

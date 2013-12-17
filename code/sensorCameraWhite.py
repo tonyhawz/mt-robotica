@@ -113,7 +113,8 @@ class SensorCameraWhite(sensor.Sensor):
         if not f:
             self.video = cv2.VideoCapture(config.camara)
         else:
-            m_i, m_d = self.mascaras(img)
+
+
             # if self.resize and f:
                 # img = cv2.resize(img,(config.ancho,config.alto))
             old_zeros = self.zeros
@@ -126,11 +127,13 @@ class SensorCameraWhite(sensor.Sensor):
             contours = self.detectar_contornos(img_hsv,
                 config.min_hsv_blanc,
                 config.max_hsv_blanc)
+
             '''
             img_bw = cv2.inRange(img_hsv, config.min_hsv_blanc,config.max_hsv_blanc)
             img_eroded = cv2.erode(img_bw,cv2.getStructuringElement(cv2.MORPH_RECT,(3,3)))
             img_dilated = cv2.erode(img_eroded,cv2.getStructuringElement(cv2.MORPH_RECT,(10,3)))
             ret,thresh = cv2.threshold(img_dilated,127,255,0)
+            cv2.imshow("ssss", thresh)
             contours, hierarchy = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
             '''
             #mask_white = np.zeros(img.shape,np.uint8)
@@ -156,7 +159,9 @@ class SensorCameraWhite(sensor.Sensor):
                 if self.display:
                     cv2.drawContours(img,
                         [big_cnt_white], 0, (255, 255, 0), 3)
+                #print "area del contorno " + str(big_cnt_white_area)
 
+                m_i, m_d = self.mascaras(img)
                 '''
                 CHEQUEO LAS BARRAS LATERALES PARA VER SI TENGO QUE DOBLAR
                 '''
@@ -164,14 +169,18 @@ class SensorCameraWhite(sensor.Sensor):
                     [m_i], 0, (255, 0, 0), -1)
                 cv2.drawContours(mask_d,
                     [m_d], 0, (255, 0, 0), -1)
+                #cv2.imshow("mascara", mask_d)
+
                 mask_i = cv2.bitwise_and(mask_i, mask_white)
                 mask_d = cv2.bitwise_and(mask_d, mask_white)
+
                 cnt_mask_i, hierarchy = cv2.findContours(mask_i,
                     cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
                 cnt_mask_d, hierarchy = cv2.findContours(mask_d,
                     cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
                 #print len(cnt_mask_d)
-                # print 'area minima ' + str(self.mask_area_min)
+                #print 'area minima ' + str(self.mask_area_min)
                 if (len(cnt_mask_i) > 0):
                     mask_area_i = cv2.contourArea(cnt_mask_i[0])
                     #print 'area i ' + str(mask_area_i)
@@ -183,6 +192,7 @@ class SensorCameraWhite(sensor.Sensor):
                         self.data.write('Camara::barra_izq', 'OK')
                 else:
                     # no hay mascara izq girar
+                    #print "salgo x aca"
                     self.data.write('Camara::barra_izq', 'GIRAR')
                     #return
                 if (len(cnt_mask_d) > 0):
@@ -293,11 +303,11 @@ class SensorCameraWhite(sensor.Sensor):
                 #if  x_old >  config.min_x and x_old  < config.max_x
             else:
                 self.data.write('Camara::encontro', 'FALSE')
-                self.data.write('lata::disponible', 0)
+                #self.data.write('lata::disponible', 0)
 
             if self.detectar_tacho:
                 contours = self.detectar_contornos(img_hsv,
-                    config.min_hsv_tacho, config.max_hsv_tacho, mask_white)
+                    config.min_hsv_tacho, config.max_hsv_tacho, None)
                 old_area = 0
                 old_cnt = None
                 for cnt in contours:
@@ -310,6 +320,7 @@ class SensorCameraWhite(sensor.Sensor):
                         cv2.drawContours(img, [old_cnt], 0, (0, 0, 255), -1)
                     rect = cv2.minAreaRect(cnt)
                     x, y = rect[0]
+                    #print ('ENCONTRE'+ str(x)+ "<= X  Y=>"+str(y))
                     self.data.write('Camara::tacho', 'TRUE')
                     self.data.write('Camara::tacho_x', x)
                     self.data.write('Camara::tacho_y', y)

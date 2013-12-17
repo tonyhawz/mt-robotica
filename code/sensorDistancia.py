@@ -1,10 +1,13 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
+# vim: tabstop=4 expandtab shiftwidth=4 softtabstop=4
 
 import sensor
 import config
+from data import Data
+from myUsb4Butia import MyUsb4Butia
+import threading
 
-from pybot import usb4butia
 
 class SensorDistancia(sensor.Sensor):
 
@@ -51,4 +54,17 @@ class SensorDistancia(sensor.Sensor):
         #print ("Distancia :: IZQ" + str(tmp_izq) +" DER "+ str(tmp_der))
 
 
+def main():
+    print ('falta camara, saliendo')
+    lock = None
+    data = Data()
+    lock = threading.Lock()
+    u4b = MyUsb4Butia()
+    m = SensorDistancia(data,u4b, 12, lock)
+    while True:
+        m.action()
+        print ("Distancia :: IZQ" + str(data.read(m.key_izq)) +" DER "+ str(data.read(m.key_der)))
 
+
+if __name__ == "__main__":
+    main()

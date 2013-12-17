@@ -11,7 +11,8 @@ class Arbitro(threading.Thread):
     data = None
     stopped = True
     u4b = None
-    def __init__(self, comps, data,u4b):
+    lkrusb =None
+    def __init__(self, comps, data,u4b,lkrusb):
         threading.Thread.__init__(self)
         self.comps = comps
         self.current_comp = comps[len(comps) - 1]
@@ -27,14 +28,20 @@ class Arbitro(threading.Thread):
         self.data = data
         self.refresh_rate = config.refresh_rate
         self.u4b =u4b
-        self.current_comp.resume()
+        self.lkrusb = lkrusb
+        #self.current_comp.resume()
 
     def arbitrar(self):
         print "Comienza arbitro"
-        #while self.u4b.getButton(config.idBoton)== -1:
-            #print "arbitro esperando" + str(self.u4b.getButton(config.idBoton))
-        #print "salie"
-        #self.current_comp.resume()
+        salir = False
+        while not salir:
+            self.lkrusb.acquire()
+            val = self.u4b.getButton(config.idBoton)
+            self.lkrusb.release()
+            print "arbitro esperando " + str(val)
+            salir = (val == 0 )
+        #print "salie "  + str(self.u4b.getButton(config.idBoton))
+        self.current_comp.resume()
         self.stopped = False
         while not self.stopped:
             print 'Arbitro::arbitrando'
@@ -58,6 +65,7 @@ class Arbitro(threading.Thread):
             # delta_t = tf - ti
             # print 'Arbitro::arbitrando ' + str(delta_t)
             time.sleep(self.refresh_rate)
+            #print "salie "  + str(self.u4b.getButton(config.idBoton))
 
         print "FIN ARBITRAR"
 

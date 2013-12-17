@@ -1,5 +1,5 @@
 import cv2
-import cv2.cv as cv 
+import cv2.cv as cv
 import os
 import time
 
@@ -42,7 +42,7 @@ while True:
     if (cv2.waitKey(5) != -1):
         break
 
-writer.release() 
+writer.release()
 
 
 

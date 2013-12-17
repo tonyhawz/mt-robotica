@@ -27,16 +27,16 @@ class CompLata(comp.Comp):
             if ((self.data.read('Camara::lata_x') > config.min_x) and (self.data.read('Camara::lata_x') < config.max_x)):
                 self.motores.avanzar_u(config.VEL)
                 print ("AREA LATA " + str(self.data.read('Camara::area')))
-                if (self.data.read('Camara::area') > config.area_lata):
+                if (self.data.read('Camara::area') > config.area_lata)  and self.data.read('Camara::lata_y') > config.min_y:
                     self.data.write('lata::disponible', 1)
                     self.motores.detener()
                     print "EEEEEENNNNNNNNNNNCCCCCCCCCCCCCOOOOONNNNNNNNNNNNTREEEEEEEEEEEEEEEEEE"
             elif (self.data.read('Camara::lata_x') < config.min_x):
                 print "izquierda"
-                self.motores.girar_antihorario()
+                self.motores.girar_lugar_antihorario()
             elif (self.data.read('Camara::lata_x') > config.max_x):
                 print "derecha"
-                self.motores.girar_horario()
+                self.motores.girar_lugar_horario()
         #else:
             ##Si la camara no esta centrada hay que ajustar camara y robot
             #if (self.data.read('SensorCamPos::pos_x') < config.cero_posx_camara and self.data.read('Camara::lata_x') < config.min_x):

@@ -7,6 +7,10 @@ class CompBuscarTacho(comp.Comp):
     def __init__(self, data, motores):
         comp.Comp.__init__(self, data)
         self.motores = motores
+        self.data.write('Tacho::disponible',0)
+        self.data.write('Camara::tacho','FALSE')
+        self.data.write('lata::disponible', 3)
+
 
     #Tomo el control solo si tengo el tacho en frente y tengo latas
     #@TODO comportamiento con respecto a latas y tacho
@@ -21,7 +25,7 @@ class CompBuscarTacho(comp.Comp):
         if ((self.data.read('Camara::tacho_x') > config.min_x) and (self.data.read('Camara::tacho_x') < config.max_x)):
             self.motores.avanzar_u(config.VEL)
             #VER CUANDO PARA
-            if (self.data.read('Camara::area') > config.area_lata):
+            if (self.data.read('Camara::area') > config.area_tacho):
                 self.motores.detener()
                 self.data.write('Tacho::disponible', 1)
                 print "Frente al TACHO"

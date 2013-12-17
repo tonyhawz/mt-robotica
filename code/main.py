@@ -11,9 +11,10 @@ from data import Data
 #from sensor import Sensor
 from compEvitar import CompEvitar
 from compWander import CompWander
-#from compAlfombra import CompAlfombra
 from compLona import CompLona
 from compLata import CompLata
+from compDescarLatas import CompDescargarLatas
+from compBuscarTacho import CompBuscarTacho
 #from compBoton import CompBoton
 from compCargarLata import CompCargarLata
 #from pybot import usb4butia
@@ -24,6 +25,7 @@ from motores import Motores
 from myUsb4Butia import MyUsb4Butia
 from motoresPinza import MotoresPinza
 #from sensorCamaraPos import SensorCamaraPos
+
 
 global hilos
 global lock_u4b
@@ -43,15 +45,16 @@ data = Data()
 #los compportamientos van en orden descendente deprioridad
 comportamientos = [
     #comboton,
-    #CompAlfombra(data, motor),
-    #CompLona(data, motor),
+    CompLona(data, motor),
     CompEvitar(data, motor),
+    #CompDescargarLatas(data, motor,motorPinza),
+    #CompBuscarTacho(data, motor),
     CompCargarLata(data, motorPinza,motor),
     CompLata(data, motor, lock_u4b),
     CompWander(data, motor)
     ]
 
-a = Arbitro(comportamientos, data,u4b)
+a = Arbitro(comportamientos, data,u4b,lock_u4b)
 a.start()
 #comboton.setArbitro(a)
 #comboton.start()

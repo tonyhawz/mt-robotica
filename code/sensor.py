@@ -22,7 +22,7 @@ class Sensor(threading.Thread):
             t0 = time.time()
             self.action()
             tf = time.time()
-            print self.getNombre() + " - " + str(tf-t0)
+            #print self.getNombre() + " - " + str(tf-t0)
             time.sleep(self.refresh_rate)
 #        print 'Sesnor fuera while'
 

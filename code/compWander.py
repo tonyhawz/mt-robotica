@@ -53,9 +53,11 @@ class CompWander(comp.Comp):
         if (self.estado is self.ADELANTE):
             self.motores.avanzar_u(self.VEL)
         elif self.estado is self.GIRAR_D:
-            self.motores.girar_horario()
+            #self.motores.girar_horario()
+            self.motores.avanzar_horario()
         elif self.estado is self.GIRAR_I:
-            self.motores.girar_antihorario()
+            #self.motores.girar_antihorario()
+            self.motores.avanzar_antihorario()
         #self.motores.hacerPaneoCamara()
 
     def reset(self):

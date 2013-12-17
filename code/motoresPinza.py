@@ -50,10 +50,10 @@ class MotoresPinza():
         self.setSpeed(200)
         self.setPosition(5, 200)
         self.setPosition(7, 811)
-        #self.setPosition(8, 511)
-        #self.setPosition(6, 511)
-        self.setPosition(8, 550)
-        self.setPosition(6, 480)
+        self.setPosition(8, 511)
+        self.setPosition(6, 511)
+        #self.setPosition(8, 550)
+        #self.setPosition(6, 480)
 
     def posNeutral(self):
         self.setSpeed(200)
@@ -65,21 +65,23 @@ class MotoresPinza():
         self.setPosition(7, 511, 200)
         time.sleep(1)
         self.setSpeed(400)
-        self.setPosition(8, 123, 400)
-        self.setPosition(6, 900, 400)
+        self.setPosition(8, 123, 500)
+        self.setPosition(6, 900, 500)
 
     def abrirDescargar(self):
-        self.setPosition(5, 200)
-        self.setPosition(7, 811)
+        self.setSpeed(200)
+        self.setPosition(5, 200,200)
+        self.setPosition(7, 811,200)
 
     def cerrarDescargar(self):
-        self.setPosition(5, 0)
-        self.setPosition(7, 1023)
+        self.setSpeed(200)
+        self.setPosition(5, 0,200)
+        self.setPosition(7, 1023,200)
 
 def main(argv):
     m = MotoresPinza(MyUsb4Butia())
     m.initMotors()
-    m.setSpeed(200)
+    #m.setSpeed(200)
     m.abierta()
     time.sleep(3)
     m.aCargar()

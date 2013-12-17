@@ -36,6 +36,22 @@ class Motores():
             velocidad)
         self.lock.release()
 
+    def avanzar_horario(self):
+        self.lock.acquire()
+        self.butia.set2MotorSpeed(config.delante,
+            config.vgiro,
+            config.delante,
+            config.vgiromenor)
+        self.lock.release()
+
+    def avanzar_antihorario(self):
+        self.lock.acquire()
+        self.butia.set2MotorSpeed(config.delante,
+            config.vgiromenor,
+            config.delante,
+            config.vgiro)
+        self.lock.release()
+
     def detener(self):
 #        self.lock.acquire()
         self.butia.set2MotorSpeed(0, 0, 0, 0, 0)
@@ -78,12 +94,21 @@ class Motores():
         #self.butia.set2MotorSpeed(0,0,0,0)
         self.lock.release()
 
-        #self.lock.acquire()
-        #self.butia.set2MotorSpeed(config.atras,
-            #config.vgiro,
-            #config.atras,
-            #config.vgiromenor)
-        #self.lock.release()
+    def girar_lugar_antihorario(self):
+        self.lock.acquire()
+        self.butia.set2MotorSpeed(config.atras,
+            config.vgirobusqueda,
+            config.delante,
+            config.vgirobusqueda)
+        self.lock.release()
+
+    def girar_lugar_horario(self):
+        self.lock.acquire()
+        self.butia.set2MotorSpeed(config.delante,
+            config.vgirobusqueda,
+            config.atras,
+            config.vgirobusqueda)
+        self.lock.release()
 
     def stop(self):
         self.lock.acquire()

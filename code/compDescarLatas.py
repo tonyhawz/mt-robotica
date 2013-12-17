@@ -11,6 +11,8 @@ class CompDescargarLatas(comp.Comp):
         self.motoresPinza = motoresPinza
         self.data = data
         self.data.write('DescargandoLatas::','FALSE')
+        self.data.write('Tacho::disponible',0)
+
 
     def takeControl(self):
         return self.data.read('Tacho::disponible') == 1
@@ -26,5 +28,6 @@ class CompDescargarLatas(comp.Comp):
         time.sleep(config.tiempo_pinza_descarga)
         self.motores.girar_antihorario()
         time.sleep(config.tiempo_salida_tacho)
+        self.data.write('Tacho::disponible',0)
         self.data.write('lata::cant_latas', str(0))
         self.data.write('DescargandoLatas::','FALSE')

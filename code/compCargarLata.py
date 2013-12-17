@@ -17,30 +17,34 @@ class CompCargarLata(comp.Comp):
         self.pinzas.abierta()
         self.motores = motores
 
+    #def takeControl(self):
+        #x = self.data.read('Camara::lata_x')
+        #y = self.data.read('Camara::lata_y')
+        #encontro = self.data.read('Camara::encontro') is 'TRUE'
+        ##print str(x) + '::' + str(y) + '::::minx ' + str(config.min_x) + '::' + 'maxx' + str(config.max_x)  + ' :: miny' +  str(config.min_y)
+        #ret = x > config.min_x and x < config.max_x and y > config.min_y and encontro
+        #return ret
+
     def takeControl(self):
-        x = self.data.read('Camara::lata_x')
-        y = self.data.read('Camara::lata_y')
-        encontro = self.data.read('Camara::encontro') is 'TRUE'
-        #print str(x) + '::' + str(y) + '::::minx ' + str(config.min_x) + '::' + 'maxx' + str(config.max_x)  + ' :: miny' +  str(config.min_y)
-        ret = x > config.min_x and x < config.max_x and y > config.min_y and encontro
-        return ret
+        return self.data.read('lata::disponible') == 1
 
     def action(self):
         if self.estado is 0:
+            self.data.write('CargandoLata::', 'TRUE')
             self.estado = 1
             #cargand
             print 'CompCargarLata::action'
             self.motores.detener()
-            self.data.write('CargandoLata::', 'TRUE')
             self.pinzas.aCargar()
             time.sleep(3)
             self.pinzas.cargar()
             time.sleep(2)
             self.pinzas.abierta()
-            time.sleep(3)
+            time.sleep(5)
             self.estado = 0
             self.data.write('CargandoLata::', 'FALSE')
             latas = int(self.data.read('lata::cant_latas')) + 1
+            self.data.write('lata::disponible', 0)
             self.data.write('lata::cant_latas', str(latas))
             #a = actitud(self.data,self.pinzas)
 

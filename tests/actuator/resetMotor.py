@@ -11,7 +11,7 @@ import Actuator
 comm_tty = CommSerial()
 comm_tty.connect()
 actuator = Actuator.Actuator(comm_tty)
-motor_id = 1
+motor_id = 99
 
 
 actuator.reset(0xfe)

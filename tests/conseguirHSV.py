@@ -27,8 +27,14 @@ hueNearZero = False
 x_co = 0
 y_co = 0
 dragging = False
-minHSV = list((0, 4, 23))
-maxHSV = list((174, 205, 83))
+#minHSV = list((0, 4, 23))
+#maxHSV = list((174, 205, 83))
+
+minHSV = list((0, 100, 100))
+maxHSV = list((100, 2, 54))
+
+#min_hsv_arena = np.array((0, 100, 100), np.int32)
+#max_hsv_arena = np.array((100, 224, 256), np.int32)
 
 def on_mouse(event,x,y,flag,param):
   global x_co

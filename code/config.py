@@ -5,7 +5,7 @@ refresh_rate = .01
 #refresh_rate = 1
 
 # variables de configuracion para la camara
-camara      = 1
+camara      = 0
 #camara = '../videos/video-1378342226.29.avi'
 #camara = '../videos/video-1379160469.34.avi'
 #camara = '../videos/video-1379159783.25.avi'
@@ -13,23 +13,25 @@ camara      = 1
 display = False
 dual_display = False
 
-
 ancho       = 160
 alto        = 120
 
 # variables para el control de la posicion de la latita
 camara_min_ratio_area = 0.015
 
-camara_ratio_mascaras_laterales = 0.050
+camara_ratio_mascaras_laterales = 0.05
 
 camara_mask_area_ratio = 0.02
 
 min_area    = 200
 #area_lata   = 1000000
-area_lata   = 100
-min_x       = (ancho / 2.0) - (ancho / 10.0)
-max_x       = (ancho / 2.0) + (ancho / 10.0)
-min_y       = (alto*.75)
+area_lata   = 1000
+area_tacho   = 7000
+#min_x       = (ancho / 2.0) - (ancho / 9.0)
+#max_x       = (ancho / 2.0) + (ancho / 4.0)
+min_x       = ancho * 0.2
+max_x       = ancho * 0.8
+min_y       = alto*0.8
 
 
 #min_x = 0
@@ -51,19 +53,28 @@ max_range   = (360, 256, 56)
 # variables para el control de los motores
 #en arena
 VEL         = 400
-vgiro       = 800
+vgiro       = 900
+#vgiromenor       = 400
 vgiromenor  = 200
+
+vgirobusqueda  = 800
+
 # en piso
-#VEL         = 200
-#vgiro       = 500
+#VEL         = 400
+#vgiro       = 800
 #vgiromenor  = 200
 
 delante     = 0
 atras       = 1
 
 
+#negro lata arena :S
 min_hsv_negro = np.array((0, 0, 0), np.int32)
-max_hsv_negro = np.array((256, 256, 50), np.int32)
+max_hsv_negro = np.array((256, 256, 90), np.int32)
+
+#negro bien
+#min_hsv_negro = np.array((0, 0, 0), np.int32)
+#max_hsv_negro = np.array((256, 256, 50), np.int32)
 
 #min_hsv_arena = np.array((0, 14, 80), np.int32) #arena fing
 #max_hsv_arena = np.array((100, 224, 256), np.int32)#arena fing
@@ -73,8 +84,8 @@ max_hsv_negro = np.array((256, 256, 50), np.int32)
 
 
 #color de la arena !!!
-min_hsv_blanc = np.array((0, 14, 80), np.int32)
-max_hsv_blanc = np.array((100, 224, 256), np.int32)
+min_hsv_blanc = np.array((0, 0, 60), np.int32)
+max_hsv_blanc = np.array((192, 69, 239), np.int32)
 
 #min_hsv_blanc = np.array((0,0,91),np.int32)
 #max_hsv_blanc = np.array((256,91,256),np.int32)
@@ -89,19 +100,20 @@ max_hsv_azul = np.array((150,256,256),np.int32)
 
 # Variables para sensor de distancia - infrarojos
 idDistIzq      = 3
-idDistDer      = 1
-max_len     = 1 # max buffer de mediciones
-dist_min    = 5000
+idDistDer      = 2
+max_len     = 4 # max buffer de mediciones
+dist_min    = 8000
 cero        = 0
 uno         = 1
 
 # Variables para sensores de grises
 timeout_ini = 4
+
 grisDer     = 1
 grisIzq     = 3
 alf_detect  = 20000
 
-idBoton     = 2
+idBoton     = 5
 
 # Variables para motores
 id_motor_camara_X = 12

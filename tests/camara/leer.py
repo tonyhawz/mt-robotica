@@ -67,8 +67,8 @@ if (route == ''):
 #route = 1
 
 video = cv2.VideoCapture(route)
-video.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH, 640);
-video.set(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT, 480);
+video.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH, 160);
+video.set(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT, 120);
 
 if not video.isOpened():
     raise RuntimeError('no se pudo abrir el video')
